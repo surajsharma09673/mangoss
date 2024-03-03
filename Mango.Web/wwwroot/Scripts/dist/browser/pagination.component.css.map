@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/share-module/Component/pagination/pagination.component.css"],
+  "sourcesContent": [".pagination {\r\n    margin-top: 20px;\r\n  }\r\n  "],
+  "mappings": ";AAAA,CAAC;AACG,cAAY;AACd;",
+  "names": []
+}

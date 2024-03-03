@@ -1,0 +1,33 @@
+<!-- product-list.component.html -->
+<form>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let product of products">
+          <div class="p-0 border rounded product-card mb-3">
+            <div class="card">
+              <img [src]="product.imageUrl" class="card-img-top" alt="Product Image">
+              <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <div class="d-flex justify-content-between py-2">
+                  <span class="text-danger" style="font-size: 20px; font-weight: bold;">{{ product.price | currency:'USD':'symbol':'1.2-2' }}</span>
+                  <span class="badge bg-warning text-white">{{ product.categoryName }}</span>
+                </div>
+                <div class="description-container">
+                  <p class="card-text" [ngClass]="{ 'collapsed': !showFullDescription[product.productId] }">
+                    {{ showFullDescription[product.productId] ? product.description : (product.description | slice:0:33) }}
+                  </p>
+                  <a href="#" *ngIf="product.description.length > 35" class="text-primary mt-2" (click)="toggleDescription(product.productId)">
+                    {{ showFullDescription[product.productId] ? 'See less' : 'See more' }}
+                  </a>
+                </div>
+                <div class="mt-2">
+                  <a  class="btn btn-success form-control" (click)="viewProductDetail(product.productId)">Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  

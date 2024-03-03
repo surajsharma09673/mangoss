@@ -1,0 +1,18 @@
+.quantity-input {
+    width: 60px; /* Adjust the width as needed */
+}
+
+/* product-detail.component.css */
+.view-cart-btn {
+    background-color: #28a745; /* Green color */
+    color: #fff; /* White text */
+    border: 1px solid #28a745; /* Green border */
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.1); /* Green shadow */
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+    /* Add hover effect */
+    &:hover {
+        background-color: #218838; /* Darker green on hover */
+        border-color: #218838; /* Darker green border on hover */
+    }
+}

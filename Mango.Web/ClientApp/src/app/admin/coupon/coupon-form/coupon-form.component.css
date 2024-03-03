@@ -1,0 +1,28 @@
+/* Add this to your global styles or a separate stylesheet */
+
+.btn-hover {
+    transition: background-color 0.3s;
+  }
+  
+  .btn-hover:hover {
+    background-color: #dc3545; /* Red color for hover effect */
+  }
+  
+
+  /* Add this to your component's CSS or global styles */
+.custom-label {
+    font-family: 'YourCustomFont', sans-serif; /* Replace 'YourCustomFont' with the desired font */
+    color: #337ab7; /* Replace with your desired color */
+    cursor: pointer;
+  }
+  
+  .custom-input {
+    cursor: pointer;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .custom-input:hover {
+    border-color: #66afe9; /* Replace with your desired hover border color */
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5); /* Replace with your desired hover box shadow */
+  }
+  

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/admin/coupon/coupon-form/coupon-form.component.css"],
+  "sourcesContent": ["/* Add this to your global styles or a separate stylesheet */\r\n\r\n.btn-hover {\r\n    transition: background-color 0.3s;\r\n  }\r\n  \r\n  .btn-hover:hover {\r\n    background-color: #dc3545; /* Red color for hover effect */\r\n  }\r\n  \r\n\r\n  /* Add this to your component's CSS or global styles */\r\n.custom-label {\r\n    font-family: 'YourCustomFont', sans-serif; /* Replace 'YourCustomFont' with the desired font */\r\n    color: #337ab7; /* Replace with your desired color */\r\n    cursor: pointer;\r\n  }\r\n  \r\n  .custom-input {\r\n    cursor: pointer;\r\n    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;\r\n  }\r\n  \r\n  .custom-input:hover {\r\n    border-color: #66afe9; /* Replace with your desired hover border color */\r\n    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5); /* Replace with your desired hover box shadow */\r\n  }\r\n  "],
+  "mappings": ";AAEA,CAAC;AACG,cAAY,iBAAiB;AAC/B;AAEA,CAJD,SAIW;AACR,oBAAkB;AACpB;AAIF,CAAC;AACG,eAAa,gBAAgB,EAAE;AAC/B,SAAO;AACP,UAAQ;AACV;AAEA,CAAC;AACC,UAAQ;AACR,cAAY,aAAa,KAAK,WAAW,EAAE,WAAW,KAAK;AAC7D;AAEA,CALC,YAKY;AACX,gBAAc;AACd,cAAY,EAAE,EAAE,IAAI,KAAK,GAAG,EAAE,GAAG,EAAE,GAAG,EAAE;AAC1C;",
+  "names": []
+}

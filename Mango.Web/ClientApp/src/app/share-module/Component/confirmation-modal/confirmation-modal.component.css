@@ -1,0 +1,76 @@
+:host {
+    text-align: center;
+  }
+  
+  .mat-dialog-container {
+    max-width: 400px;
+    border-radius: 8px;
+  }
+  
+  h2 {
+    color: #e53935;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; /* Center icon and text vertically */
+  }
+  .confirmation-text {
+    color: #e53935; /* Red color for confirmation text */
+    font-size: 18px; /* Adjust font size */
+    font-weight: bold; /* Make the text bold */
+  }
+  
+  .danger-icon {
+    color: #e53935;
+    margin-right: 8px; /* Add margin between icon and text */
+  }
+  
+  .dialog-content {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* Align items vertically */
+    text-align: center; /* Center text horizontally */
+  }
+  
+  .dialog-content p {
+    margin-bottom: 0; /* Remove margin from the paragraph */
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+  }
+  
+  .dialog-actions button {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dialog-actions mat-icon {
+    margin-right: 8px;
+  }
+  
+  .confirm-button {
+    background-color: #45a049;
+  }
+  
+  .cancel-button {
+    background-color: #e53935;
+  }
+  
+  .dialog-actions button:hover {
+    filter: brightness(90%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  

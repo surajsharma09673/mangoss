@@ -1,0 +1,60 @@
+
+<!-- coupon-list.component.html -->
+<div class="container mt-4">
+  <h2>{{ showCouponForm ? "Create Coupon" : "Coupon List" }}</h2>
+
+  <!-- Button Group -->
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <button class="btn btn-primary" (click)="createCoupon()">
+        {{ showCouponForm ? "Back" : "Create Coupon" }}
+      </button>
+    </div>
+    <div class="input-group" *ngIf="!showCouponForm">
+      <input type="text" class="form-control" placeholder="Search Coupon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
+      <button class="btn btn-outline-secondary" type="button" (click)="search()">Search</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive" *ngIf="!showCouponForm">
+    <!-- Responsive table wrapper -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Coupon ID</th>
+          <th>Coupon Code</th>
+          <th>Discount Amount</th>
+          <th>Minimum Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let coupon of displayedCoupons" (click)="onRowClick(coupon)" [class.selected]="selectedCoupon === coupon">
+          <td>{{ coupon.couponId }}</td>
+          <td>{{ coupon.couponCode }}</td>
+          <td>{{ coupon.discountAmount | currency:'INR':'symbol':'1.2-2' }}</td>
+          <td>{{ coupon.minAmount | currency:'INR':'symbol':'1.2-2' }}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-sm btn-info me-2" (click)="editCoupon(coupon)">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="deleteCoupon(coupon)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <app-pagination *ngIf="!showCouponForm" [currentPage]="currentPage" [totalPages]="totalPages" [pages]="pages" (pageChanged)="onPageChanged($event)"></app-pagination>
+
+  <div *ngIf="showCouponForm" class="row justify-content-center mt-4">
+    <div class="col-md-8">
+      <app-coupon-form (formSubmitted)="onFormSubmitted($event)"
+      (BackButton)="GotoList($event)"
+       [initialFormValues]="couponFormInitialValues"
+       [CouponIDHide]="CouponIDHide"></app-coupon-form>
+    </div>
+  </div>
+</div>

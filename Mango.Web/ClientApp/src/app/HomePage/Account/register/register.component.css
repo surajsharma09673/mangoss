@@ -1,0 +1,35 @@
+/* Styles for the Login button in the registration form */
+.login-button {
+  /* Your button styles */
+  /* For example: */
+  align-self: flex-end; /* Align to the right */
+  margin-top: 20px;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.login-button:hover {
+  /* Hover effects */
+  /* For example: */
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+
+.register-button {
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.register-button:hover {
+  background-color: #1976d2; /* Change to your desired hover color */
+  color: white; /* Change to your desired text color */
+}
+
+
+
+

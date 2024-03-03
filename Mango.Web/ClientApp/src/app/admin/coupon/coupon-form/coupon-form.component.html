@@ -1,0 +1,47 @@
+<!-- coupon-form.component.html -->
+
+<form [formGroup]="couponForm" class="mb-4 border rounded p-4 shadow" style="max-width: 800px; margin: auto;">
+    <div class="text-start mb-3">
+        <button class="btn btn-outline-primary btn-sm" (click)="goBack()">
+          <i class="bi bi-arrow-left"></i> 
+        </button>
+      </div>
+    <div class="row">
+        <div class="col-md-4 mb-3" *ngIf="!CouponIDHide" >
+            <label for="couponId" class="form-label custom-label">Coupon ID</label>
+            <input type="text" class="form-control form-control-lg custom-input" id="couponId" formControlName="couponId" [disabled]="true">
+          </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="couponCode" class="form-label custom-label">Coupon Code</label>
+        <input type="text" class="form-control form-control-lg custom-input" id="couponCode" formControlName="couponCode" placeholder="Enter coupon code">
+        <div *ngIf="couponForm.get('couponCode')?.hasError('required') && couponForm.get('couponCode')?.touched" class="text-danger">Coupon Code is required.</div>
+        <div *ngIf="couponForm.get('couponCode')?.hasError('maxlength') && couponForm.get('couponCode')?.touched" class="text-danger">Maximum length is 10 characters.</div>
+      </div>
+  
+      <div class="col-md-4 mb-3">
+        <label for="discountAmount" class="form-label custom-label">Discount Amount</label>
+        <div class="input-group">
+          <span class="input-group-text custom-input" id="discountAmountLabel">₹</span>
+          <input type="number" class="form-control form-control-lg custom-input" id="discountAmount" formControlName="discountAmount" placeholder="Enter discount amount">
+          <div *ngIf="couponForm.get('discountAmount')?.hasError('required') && couponForm.get('discountAmount')?.touched" class="text-danger">Discount Amount is required.</div>
+          <div *ngIf="couponForm.get('discountAmount')?.hasError('min') && couponForm.get('discountAmount')?.touched" class="text-danger">Discount Amount must be greater than or equal to 0.</div>
+        </div>
+      </div>
+  
+      <div class="col-md-4 mb-3">
+        <label for="minAmount" class="form-label custom-label">Minimum Amount</label>
+        <div class="input-group">
+          <span class="input-group-text custom-input" id="minAmountLabel">₹</span>
+          <input type="number" class="form-control form-control-lg custom-input" id="minAmount" formControlName="minAmount" placeholder="Enter minimum amount">
+          <div *ngIf="couponForm.get('minAmount')?.hasError('required') && couponForm.get('minAmount')?.touched" class="text-danger">Minimum Amount is required.</div>
+          <div *ngIf="couponForm.get('minAmount')?.hasError('min') && couponForm.get('minAmount')?.touched" class="text-danger">Minimum Amount must be greater than or equal to 0.</div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="text-center">
+      <button class="btn btn-primary btn-sm btn-hover" (click)="submitForm()">Submit</button>
+    </div>
+  </form>
+  

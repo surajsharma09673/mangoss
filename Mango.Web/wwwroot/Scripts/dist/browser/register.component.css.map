@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/HomePage/Account/register/register.component.css"],
+  "sourcesContent": ["/* Styles for the Login button in the registration form */\r\n.login-button {\r\n  /* Your button styles */\r\n  /* For example: */\r\n  align-self: flex-end; /* Align to the right */\r\n  margin-top: 20px;\r\n  padding: 8px 16px;\r\n  border: 1px solid #ccc;\r\n  border-radius: 4px;\r\n  background-color: transparent;\r\n  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;\r\n}\r\n\r\n.login-button:hover {\r\n  /* Hover effects */\r\n  /* For example: */\r\n  background-color: #f0f0f0;\r\n  border-color: #999;\r\n}\r\n\r\n\r\n.register-button {\r\n  width: 100%;\r\n  margin-top: 20px;\r\n  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;\r\n}\r\n\r\n.register-button:hover {\r\n  background-color: #1976d2; /* Change to your desired hover color */\r\n  color: white; /* Change to your desired text color */\r\n}\r\n\r\n\r\n\r\n\r\n"],
+  "mappings": ";AACA,CAAC;AAGC,cAAY;AACZ,cAAY;AACZ,WAAS,IAAI;AACb,UAAQ,IAAI,MAAM;AAClB,iBAAe;AACf,oBAAkB;AAClB;AAAA,IAAY,iBAAiB,KAAK,WAAW;AAAA,IAAE,MAAM,KAAK,WAAW;AAAA,IAAE,aAAa,KAAK;AAC3F;AAEA,CAZC,YAYY;AAGX,oBAAkB;AAClB,gBAAc;AAChB;AAGA,CAAC;AACC,SAAO;AACP,cAAY;AACZ,cAAY,iBAAiB,KAAK,WAAW,EAAE,MAAM,KAAK;AAC5D;AAEA,CANC,eAMe;AACd,oBAAkB;AAClB,SAAO;AACT;",
+  "names": []
+}

@@ -1,0 +1,53 @@
+<!-- product-form.component.html -->
+
+<form [formGroup]="productForm" class="mb-4 border rounded p-4 shadow" style="max-width: 800px; margin: auto;">
+    <div class="text-start mb-3">
+      <button class="btn btn-outline-primary btn-sm" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> 
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-3"  *ngIf="!ProductIdHide">
+        <label for="productId" class="form-label custom-label">Product ID</label>
+        <input type="text" class="form-control form-control-lg custom-input" id="productId" formControlName="productId" placeholder="Enter product ID">
+      </div>
+  
+      <div class="col-md-4 mb-3">
+        <label for="name" class="form-label custom-label">Product Name</label>
+        <input type="text" class="form-control form-control-lg custom-input" id="name" formControlName="name" placeholder="Enter product name">
+        <div *ngIf="productForm.get('name')?.hasError('required') && productForm.get('name')?.touched" class="text-danger">Product Name is required.</div>
+      </div>
+  
+      <div class="col-md-4 mb-3">
+        <label for="description" class="form-label custom-label">Description</label>
+        <input type="text" class="form-control form-control-lg custom-input" id="description" formControlName="description" placeholder="Enter description">
+      </div>
+  
+      <div class="col-md-4 mb-3">
+        <label for="price" class="form-label custom-label">Price</label>
+        <div class="input-group">
+          <span class="input-group-text custom-input" id="priceLabel">₹</span>
+          <input type="number" class="form-control form-control-lg custom-input" id="price" formControlName="price" placeholder="Enter price">
+          <div *ngIf="productForm.get('price')?.hasError('required') && productForm.get('price')?.touched" class="text-danger">Price is required.</div>
+          <div *ngIf="productForm.get('price')?.hasError('min') && productForm.get('price')?.touched" class="text-danger">Price must be greater than or equal to 0.</div>
+        </div>
+      </div>
+  
+      <div class="col-md-4 mb-3">
+        <label for="categoryName" class="form-label custom-label">Category Name</label>
+        <input type="text" class="form-control form-control-lg custom-input" id="categoryName" formControlName="categoryName" placeholder="Enter category name">
+        <div *ngIf="productForm.get('categoryName')?.hasError('required') && productForm.get('categoryName')?.touched" class="text-danger">Category Name is required.</div>
+      </div>
+  
+      <div class="col-md-4 mb-3">
+        <label for="imageUrl" class="form-label custom-label">Image URL</label>
+        <input type="text" class="form-control form-control-lg custom-input" id="imageUrl" formControlName="imageUrl" placeholder="Enter image URL">
+        <div *ngIf="productForm.get('imageUrl')?.hasError('required') && productForm.get('imageUrl')?.touched" class="text-danger">Image URL is required.</div>
+      </div>
+    </div>
+  
+    <div class="text-center">
+      <button class="btn btn-primary btn-sm btn-hover" (click)="submitForm()">Submit</button>
+    </div>
+  </form>
+  

@@ -1,0 +1,79 @@
+<!-- product-list.component.html -->
+<div class="container mt-4">
+    <h2>{{ showProductForm ? "Create Product" : "Product List" }}</h2>
+  
+    <!-- Button Group -->
+    <div class="d-flex justify-content-between mb-3">
+      <div>
+        <button class="btn btn-primary" (click)="createProduct()">
+          {{ showProductForm ? "Back" : "Create Product" }}
+        </button>
+      </div>
+      <div class="input-group" *ngIf="!showProductForm">
+        <input type="text" class="form-control" placeholder="Search Product" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
+        <button class="btn btn-outline-secondary" type="button" (click)="search()">Search</button>
+      </div>
+    </div>
+  
+    <!-- Table -->
+    <div class="table-responsive" *ngIf="!showProductForm">
+      <!-- Responsive table wrapper -->
+      <div *ngIf="isLoading; else productTable">
+        <!-- Show loader when data is loading -->
+        <div class="loader">Loading...</div>
+      </div>
+      <ng-template #productTable>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Category Name</th>
+              <th>Image</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="displayedProducts && displayedProducts.length > 0; else noData">
+              <tr *ngFor="let product of displayedProducts " (click)="onRowClick(product)" [class.selected]="selectedProduct === product">
+                <td>{{ product.productId }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price | currency:'INR':'symbol':'1.2-2' }}</td>
+                <td>{{ product.categoryName }}</td>
+                <td>
+                  <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Product Image" style="max-width: 100px; max-height: 100px;">
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-info me-2" (click)="editProduct(product)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteProduct(product)">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-template #noData>
+              <tr>
+                <td colspan="7" class="text-center">No products found.</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </ng-template>
+    </div>
+  
+    <!-- Pagination -->
+    <app-pagination *ngIf="!showProductForm && displayedProducts && displayedProducts.length > 0" [currentPage]="currentPage" [totalPages]="totalPages" [pages]="pages" (pageChanged)="onPageChanged($event)"></app-pagination>
+  
+    <div *ngIf="showProductForm" class="row justify-content-center mt-4">
+      <div class="col-md-8">
+        <app-product-form (formSubmitted)="onFormSubmitted($event)"
+        (BackButton)="GotoList($event)"
+        [initialFormValues]="productFormInitialValues"
+        [ProductIdHide]="ProductIdHide"></app-product-form>
+      </div>
+    </div>
+  </div>
+  

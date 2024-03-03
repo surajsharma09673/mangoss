@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/HomePage/Product/product-detail/product-detail.component.css"],
+  "sourcesContent": [".quantity-input {\r\n    width: 60px; /* Adjust the width as needed */\r\n}\r\n\r\n/* product-detail.component.css */\r\n.view-cart-btn {\r\n    background-color: #28a745; /* Green color */\r\n    color: #fff; /* White text */\r\n    border: 1px solid #28a745; /* Green border */\r\n    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.1); /* Green shadow */\r\n    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;\r\n\r\n    /* Add hover effect */\r\n    &:hover {\r\n        background-color: #218838; /* Darker green on hover */\r\n        border-color: #218838; /* Darker green border on hover */\r\n    }\r\n}\r\n"],
+  "mappings": ";AAAA,CAAC;AACG,SAAO;AACX;AAGA,CAAC;AACG,oBAAkB;AAClB,SAAO;AACP,UAAQ,IAAI,MAAM;AAClB,cAAY,EAAE,IAAI,IAAI,KAAK,EAAE,EAAE,GAAG,EAAE,EAAE,EAAE;AACxC;AAAA,IAAY,iBAAiB,KAAK,WAAW;AAAA,IAAE,aAAa,KAAK,WAAW;AAAA,IAAE,MAAM,KAAK;AAO7F;AAZA,CAAC,aAQI;AACG,oBAAkB;AAClB,gBAAc;AAClB;",
+  "names": []
+}
