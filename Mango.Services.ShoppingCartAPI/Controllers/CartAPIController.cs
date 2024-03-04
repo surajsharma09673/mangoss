@@ -139,7 +139,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             try
             {
                 var cartFromDb = _appDbContext;
-                var ob;
+                var ob="ab";
                
             }catch (Exception ex)
             {
