@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IProduct } from '../../../share-module/Interface/Iproduct.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeProductService } from '../../../share-module/Service/home-product.service';
+import { AuthenticationService } from '../../../share-module/Service/authentication.service';
+import { TokenService } from '../../../share-module/Service/token.service';
  // Import your product interface
 
 @Component({
@@ -20,7 +22,8 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private HomeproductService:HomeProductService,
-    private router:Router ) { }
+    private router:Router,
+    private Tokenservice: TokenService, ) { }
 
 ngOnInit()
 {
@@ -41,7 +44,11 @@ ngOnInit()
 addToCart(): void {
   // Implement your logic for adding the product to the cart
   // Update the item count
-  this.numberOfItems++;
+  this.product.count=this.quantity
+  this.HomeproductService.AddProductDetails(this.product).subscribe(res=>{
+    console.log(res);
+  })
+;
 }
 
 goBack(): void {
@@ -50,16 +57,15 @@ goBack(): void {
 }
 
 viewCart(): void {
+  if(this.Tokenservice.isCustomer()){
   // Implement your logic to navigate to the cart page
-  this.router.navigate(['/cart']); // Adjust the route accordingly
-}
-  incrementItems() {
-    this.numberOfItems++;
+  this.router.navigate(['/home/cart']);
   }
+  else{
+  this.router.navigate(['/home/login']); 
+  }// Adjust the route accordingly
+}
 
-  decrementItems() {
-    if (this.numberOfItems > 1) {
-      this.numberOfItems--;
-    }
-  }
+  
 }
+

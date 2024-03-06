@@ -57,6 +57,28 @@ export class TokenService {
     }
 }
 
+isCustomer(): boolean {
+  const token = this.getToken();
+
+  if (token !== null) {
+      try {
+          // Decode and verify the token
+          const decodedToken = this.jwtHelper.decodeToken(token);
+
+          // Check if the user has the 'admin' role
+          const userRole = decodedToken.role;
+          console.log(decodedToken,decodedToken.role)
+
+          return userRole === 'CUSTOMER';
+      } catch (error) {
+          console.error('Error decoding token:', error);
+          return false; // Error decoding token
+      }
+  } else {
+      return false; // Token is null
+  }
+}
+
   // Function to validate a token
   validateToken(): boolean {
     var token = this.getToken();

@@ -16,7 +16,7 @@
             <div class="d-flex justify-content-between align-items-start flex-wrap">
                 <h2>{{ product.name }}</h2>
                 <!-- View Cart Button -->
-                <button class="btn btn-info mt-2 view-cart-btn" (click)="viewCart()">View Cart <span class="badge badge-light">{{ numberOfItems }}</span></button>
+                <button class="btn btn-info mt-2 view-cart-btn" (click)="viewCart()">View Cart <span class="badge badge-light">{{ quantity }}</span></button>
             </div>
             <p class="text-danger" style="font-size: 24px; font-weight: bold;">{{ product.price | currency:'USD':'symbol':'1.2-2' }}</p>
             <p class="badge bg-warning text-white">{{ product.categoryName }}</p>
@@ -32,6 +32,7 @@
                     <label for="quantity">Quantity:</label>
                     <input type="number" class="form-control quantity-input" id="quantity" [(ngModel)]="quantity" placeholder="1" min="1" />
                 </div>
+                
             </div>
         </div>
     </div>

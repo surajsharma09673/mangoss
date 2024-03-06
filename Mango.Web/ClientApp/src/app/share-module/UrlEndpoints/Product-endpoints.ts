@@ -5,6 +5,7 @@ export const  ProductEndpoint=
     
     CreateProduct:"api/Product/CreateProduct",
     UpdateProduct:"api/Product/UpdateProduct/",
-    DeleteProduct:"api/Product/DeleteProduct/"
+    DeleteProduct:"api/Product/DeleteProduct/",
+    AddProductDetails: "api/Product/ProductDetails"
 };
 

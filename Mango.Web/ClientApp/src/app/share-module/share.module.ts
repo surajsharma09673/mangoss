@@ -36,6 +36,8 @@ import { ProductEndpoint } from "./UrlEndpoints/Product-endpoints";
 import { SearchService } from "./Service/search.service";
 import { HomeProductService } from "./Service/home-product.service";
 import { TruncatePipe } from "./Pipes/truncate.pipe";
+import { CartService } from "./Service/cart.service";
+import { CartEndpoint } from "./UrlEndpoints/Cart-endpoint";
 
 const Authenticationendpoint = {
   provide: ENDPOINT_INSTANCES,
@@ -51,6 +53,11 @@ const ProductEndpointendpoint = {
   provide: ENDPOINT_INSTANCES,
   multi: true,
   useValue: ProductEndpoint
+};
+const CartEndpointendpoint = {
+  provide: ENDPOINT_INSTANCES,
+  multi: true,
+  useValue: CartEndpoint
 };
 
 
@@ -112,7 +119,8 @@ const SHARED_DECLARATIONS = [
   declarations: [...SHARED_DECLARATIONS],
   providers: [PaginationService,ToastService,FormService,HttpService,LoaderService,
     RegisterService,LoginService,AuthenticationService,TokenService,ApiEndpointService,PopupService
-    ,Authenticationendpoint,CouponEndpointendpoint,ProductEndpointendpoint,UserService,SearchService,HomeProductService
+    ,Authenticationendpoint,CouponEndpointendpoint,ProductEndpointendpoint,UserService,SearchService,HomeProductService,
+    CartService,CartEndpointendpoint
 
    
   ],

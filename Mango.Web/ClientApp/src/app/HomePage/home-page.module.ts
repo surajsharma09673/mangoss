@@ -8,6 +8,7 @@ import { SharedModule } from '../share-module/share.module';
 import { HomeComponent } from './home/home.component';
 import { ProductCardComponent } from './Product/product-card/product-card.component';
 import { ProductDetailComponent } from './Product/product-detail/product-detail.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ProductDetailComponent } from './Product/product-detail/product-detail.
     RegisterComponent,
     HomeComponent,
     ProductCardComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    CartComponent
     
   ],
   imports: [
