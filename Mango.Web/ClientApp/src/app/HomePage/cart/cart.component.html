@@ -1,150 +1,140 @@
 <!-- cart.component.html -->
 
 <form method="post" class="container mt-4">
-    <div class="card border-dark shadow">
-      <div class="card-header bg-dark text-light row">
-        <div class="col-6">
-          <h3 class="text-success">
-            <i class="bi bi-cart"></i> &nbsp; Shopping Cart
-          </h3>
-        </div>
-        <div class="col-6 text-end">
-          <a class="btn btn-outline-warning mt-2 btn-sm">Continue Shopping</a>
-        </div>
+  <div class="card border-dark shadow">
+    <div class="card-header bg-dark text-light row">
+      <div class="col-6">
+        <h3 class="text-success">
+          <i class="bi bi-cart"></i> &nbsp; Shopping Cart
+        </h3>
       </div>
-      <div class="card-body">
-        <div class="d-none d-lg-block">
-          <div class="row text-info">
-            <div class="col-lg-2">Image</div>
-            <div class="col-lg-5">Product Details</div>
-            <div class="col-lg-2">Price</div>
-            <div class="col-lg-2">Quantity</div>
-            <div class="col-lg-1">Actions</div>
-          </div>
-        </div>
-        <hr />
-  
-        <!-- Loop through each item in cartDetails -->
-        <div *ngIf="cartDetails.length > 0">
-          <div class="row mb-3" *ngFor="let item of cartDetails">
-            <div class="col-12 col-md-2 text-center">
-              <img [src]="item.productDto.imageUrl" class="rounded" width="80" />
-            </div>
-            <div class="col-12 col-md-5">
-              <h5>{{ item.productDto.name }}</h5>
-              <div style="font-size: 14px">
-                {{ item?.productDto?.description }}
-              </div>
-            </div>
-            <div class="col-6 col-md-2 pt-md-4" style="font-size: 14px">
-              <span> $$ {{ item?.productDto?.price }} </span>
-            </div>
-            <div class="col-6 col-md-2 pt-md-4" style="font-size: 14px">
-              <span> {{ item?.count }}</span>
-            </div>
-            <div class="col-6 col-md-1 pt-md-4 text-center">
-              <a
-                class="btn btn-sm btn-danger"
-                (click)="removeFromCart(item.cartDetailId)"
-              >
-                <i class="bi bi-trash-fill"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-  
-        <hr />
-  
-        <!-- Coupon Section -->
-        <div class="row mt-3">
-          <div class="col-12">
-            <h5 class="text-primary">Apply Coupon</h5>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-3 mb-2">
-            <div class="input-group">
-              <span class="input-group-text bg-primary text-light">Coupon:</span>
-              <input
-                type="search"
-                class="form-control form-control-sm"
-                style="width: 80px"
-                [(ngModel)]="CouponCode"
-              />
-              <!-- Display Remove Coupon button if a coupon is added, otherwise display Apply Coupon button -->
-              <button
-                *ngIf="CouponCodeAdded"
-                type="button"
-                class="btn btn-danger btn-sm ms-2"
-                (click)="RemoveCoupon()"
-              >
-                Remove Coupon
-              </button>
-              <button
-                *ngIf="!CouponCodeAdded"
-                type="button"
-                class="btn btn-success btn-sm ms-2"
-                (click)="ApplyCoupon()"
-              >
-                Apply
-              </button>
-              <!-- Display clear icon inside the text box for clearing the coupon -->
-            </div>
-          </div>
-        </div>
-  
-        <!-- Your existing HTML code... -->
-  
-        <!-- Display Total Price, Order Total, and Order Discount -->
-        <div class="row mt-2">
-            <div class="col-12 text-end">
-              <p class="text-primary total-cost">
-                <i class="bi bi-currency-dollar"></i>
-                <!-- Add an icon, adjust the class based on your icon library -->
-                Total Price:
-                <span
-                  class="badge bg-success p-2"
-                  style="font-size: 18px; box-shadow: 5px 9px 13px rgba(0, 0, 0, 0.1); width: 135px; display: inline-block; margin-left: 10px; margin-right: 10px;"
-                >
-                  {{ cartHeader?.cartTotal | currency : "USD" : "symbol" : "1.2-2" }}
-                </span>
-                <!-- Show Order Discount only if discount is greater than zero -->
-                <span *ngIf="cartHeader && cartHeader.discount! > 0">
-                  Order Discount:
-                  <span
-                    class="badge bg-warning text-dark p-2"
-                    style="font-size: 18px; box-shadow: 5px 9px 13px rgba(0, 0, 0, 0.1); width: 135px; display: inline-block; margin-left: 10px; margin-top: 5px; margin-right: 10px;"
-                  >
-                    {{ cartHeader.discount | currency : "USD" : "symbol" : "1.2-2" }}
-                  </span>
-                </span>
-              </p>
-            </div>
-          </div>
-          
-  
-        <!-- Your existing HTML code... -->
-  
-      </div>
-  
-      <!-- Your existing HTML code... -->
-  
-      <div class="card-footer row">
-        <div class="col-12 col-md-6 mb-2">
-          <button type="submit" class="btn btn-outline-danger form-control">
-            Email Cart
-          </button>
-        </div>
-        <div class="col-12 col-md-6">
-          <button
-            disabled
-            class="btn btn-success w-100"
-            value="Checkout (Coming Soon!)"
-          >
-            Checkout (Coming Soon!)
-          </button>
-        </div>
+      <div class="col-6 text-end">
+        <a class="btn btn-outline-warning mt-2 btn-sm">Continue Shopping</a>
       </div>
     </div>
-  </form>
-  
+    <div class="card-body">
+      <div class="d-none d-lg-block">
+        <div class="row text-info">
+          <div class="col-lg-2">Image</div>
+          <div class="col-lg-5">Product Details</div>
+          <div class="col-lg-2">Price</div>
+          <div class="col-lg-2">Quantity</div>
+          <div class="col-lg-1">Actions</div>
+        </div>
+      </div>
+      <hr />
+
+      <!-- Loop through each item in cartDetails -->
+      <div *ngIf="cartDetails.length > 0; else emptyCart">
+        <div class="row mb-3" *ngFor="let item of cartDetails">
+          <div class="col-12 col-md-2 text-center">
+            <img [src]="item.productDto.imageUrl" class="rounded" width="80" />
+          </div>
+          <div class="col-12 col-md-5">
+            <h5>{{ item.productDto.name }}</h5>
+            <div style="font-size: 14px">
+              {{ item?.productDto?.description }}
+            </div>
+          </div>
+          <div class="col-6 col-md-2 pt-md-4" style="font-size: 14px">
+            <span> $$ {{ item?.productDto?.price }} </span>
+          </div>
+          <div class="col-6 col-md-2 pt-md-4" style="font-size: 14px">
+            <span> {{ item?.count }}</span>
+          </div>
+          <div class="col-6 col-md-1 pt-md-4 text-center">
+            <a class="btn btn-sm btn-danger" (click)="removeFromCart(item.cartDetailId)">
+              <i class="bi bi-trash-fill"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message to display when cart is empty -->
+      <ng-template #emptyCart>
+        <div class="text-center">
+          <p class="text-muted">Your cart is empty. Please add items to your cart.</p>
+        </div>
+      </ng-template>
+
+      <hr />
+
+      <!-- Coupon Section -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <h5 class="text-primary">Apply Coupon</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-3 mb-2">
+          <div class="input-group">
+            <span class="input-group-text bg-primary text-light">Coupon:</span>
+            <input
+              type="search"
+              class="form-control form-control-sm"
+              style="width: 80px"
+              [(ngModel)]="CouponCode"
+            />
+            <button
+              *ngIf="CouponCodeAdded"
+              type="button"
+              class="btn btn-danger btn-sm ms-2"
+              (click)="RemoveCoupon()"
+            >
+              Remove Coupon
+            </button>
+            <button
+              *ngIf="!CouponCodeAdded"
+              type="button"
+              class="btn btn-success btn-sm ms-2"
+              (click)="ApplyCoupon()"
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Your existing HTML code... -->
+
+      <!-- Display Total Price, Order Total, and Order Discount -->
+      <div class="row mt-2">
+        <div class="col-12 text-end">
+          <p class="text-primary total-cost">
+            <i class="bi bi-currency-dollar"></i>
+            Total Price:
+            <span
+              class="badge bg-success p-2"
+              style="font-size: 18px; box-shadow: 5px 9px 13px rgba(0, 0, 0, 0.1); width: 135px; display: inline-block; margin-left: 10px; margin-right: 10px;"
+            >
+              {{ cartHeader?.cartTotal | currency : "USD" : "symbol" : "1.2-2" }}
+            </span>
+            <span *ngIf="cartHeader && cartHeader.discount! > 0">
+              Order Discount:
+              <span
+                class="badge bg-warning text-dark p-2"
+                style="font-size: 18px; box-shadow: 5px 9px 13px rgba(0, 0, 0, 0.1); width: 135px; display: inline-block; margin-left: 10px; margin-top: 5px; margin-right: 10px;"
+              >
+                {{ cartHeader.discount | currency : "USD" : "symbol" : "1.2-2" }}
+              </span>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Your existing HTML code... -->
+
+<!-- Email Cart and Submit Button Section -->
+<div class="row mt-3">
+  <!-- Email Cart Button -->
+  <div class="col-6 col-md-3 mb-2">
+    <button type="submit" class="btn btn-outline-danger form-control">Email Cart</button>
+  </div>
+  <!-- Submit Button -->
+  <div class="col-6 col-md-3 offset-md-6">
+    <button disabled class="btn btn-success form-control">submit(Coming Soon!)</button>
+  </div>
+</div>
+</div>
+  </div>
+</form>

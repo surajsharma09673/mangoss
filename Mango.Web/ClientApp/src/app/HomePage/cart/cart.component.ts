@@ -30,7 +30,7 @@ export class CartComponent {
         this.cartItems = res;
         this.cartHeader = res.cartHeader;
         this.cartDetails = res.cartDetails;
-        if (this.cartHeader.couponCode) {
+        if (this.cartHeader?.couponCode) {
           this.CouponCode = this.cartHeader.couponCode;
           this.CouponCodeAdded = true;
         } else {

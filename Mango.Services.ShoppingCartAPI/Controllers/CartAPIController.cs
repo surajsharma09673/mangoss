@@ -55,10 +55,10 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                     cart.CartHeader.CartTotal += (item.Count * item.ProductDto.Price);
                 }
                 //apply coupon If Any
-                if(!string.IsNullOrEmpty(cart.CartHeader.CouponCode))
+                if (!string.IsNullOrEmpty(cart.CartHeader.CouponCode))
                 {
                     CouponDto couponDto = await _couponService.GetCouponsAsync(cart.CartHeader.CouponCode);
-                    if(couponDto != null && cart.CartHeader.CartTotal >couponDto.MinAmount)
+                    if (couponDto != null && cart.CartHeader.CartTotal > couponDto.MinAmount)
                     {
                         cart.CartHeader.CartTotal -= couponDto.DiscountAmount;
                         cart.CartHeader.Discount = couponDto.DiscountAmount;
@@ -76,7 +76,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         }
 
         [HttpPost("CartUpsert")]
-        public async Task<ResponseDto> CartUpsert([FromBody]CartDto cartDto)
+        public async Task<ResponseDto> CartUpsert([FromBody] CartDto cartDto)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                             cartDto.CartDetails.First().CartHeaderId = cartDetailFromDb.CartHeaderId;
                             cartDto.CartDetails.First().CartDetailId = cartDetailFromDb.CartDetailId;
 
-                            existingCartDetail.Count =cartDto.CartDetails.First().Count;
+                            existingCartDetail.Count = cartDto.CartDetails.First().Count;
                             // _appDbContext.CartDetails.Update(_mapper.Map<CartDetails>(cartDetailsDto));
 
                             _appDbContext.CartDetails.Update(_mapper.Map<CartDetails>(existingCartDetail));
@@ -180,6 +180,25 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             }
             return _response;
         }
+
+        [HttpPost("EmailCartRequest")]
+        public async Task<ResponseDto> EmailCartRequest([FromBody] CartDto cartDto)
+        {
+            try
+            {
+
+               
+                _response.Result = true;
+
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.Message;
+                _response.IsSuccess = false;
+            }
+            return _response;
+        }
+
         [HttpPost("RemoveCoupon")]
         public async Task<ResponseDto> RemoveCoupon([FromBody] CartDto cartDto)
         {

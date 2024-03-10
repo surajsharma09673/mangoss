@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HomeProductService } from '../../../share-module/Service/home-product.service';
 import { AuthenticationService } from '../../../share-module/Service/authentication.service';
 import { TokenService } from '../../../share-module/Service/token.service';
+import { ToastService } from '../../../share-module/Service/Toast.service';
  // Import your product interface
 
 @Component({
@@ -23,7 +24,8 @@ export class ProductDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private HomeproductService:HomeProductService,
     private router:Router,
-    private Tokenservice: TokenService, ) { }
+    private Tokenservice: TokenService,
+    private toastService:ToastService ) { }
 
 ngOnInit()
 {
@@ -46,7 +48,11 @@ addToCart(): void {
   // Update the item count
   this.product.count=this.quantity
   this.HomeproductService.AddProductDetails(this.product).subscribe(res=>{
+    if(res!=null && res.isSuccess)
+    {
+      this.toastService.showToast("Item Added SUccessfully",this.product.name +" SUccessfully " ,"success")
     console.log(res);
+    }
   })
 ;
 }
