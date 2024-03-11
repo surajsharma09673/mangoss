@@ -6,6 +6,7 @@ import { NgFor } from '@angular/common';
 import { ICartHeader } from '../../share-module/Interface/cart-header.interface';
 import { ICartDetails } from '../../share-module/Interface/cart-details.Interface';
 import { STRING_TYPE } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +20,7 @@ export class CartComponent {
   CouponCode: string = '';
   CouponCodeAdded: boolean = false;
 
-  constructor(private cartService: CartService, private zone: NgZone) {}
+  constructor(private cartService: CartService, private zone: NgZone,private router :Router) {}
 
   ngOnInit(): void {
     this.loadCartItems();
@@ -75,5 +76,17 @@ export class CartComponent {
         console.log(res);
       }
     });
+  }
+  EmailCart()
+  {
+    this.cartService.EmailCart(this.cartItems).subscribe((res) => {
+      if (res.isSuccess) {
+        console.log(res);
+      }
+    });
+  }
+  CheckOut()
+  {
+    this.router.navigate(["home/orderSummary"])
   }
 }

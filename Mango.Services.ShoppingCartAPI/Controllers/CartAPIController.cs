@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Mango.MessageBus;
 using Mango.Services.ShoppingCartAPI.Models;
 using Mango.Services.ShoppingCartAPI.Models.Dto;
 using Mango.Services.ShoppingCartAPI.Service.IService;
@@ -20,9 +21,11 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         private readonly AppDbContext _appDbContext;
         private readonly IProductService _productService;
         private readonly ICouponService _couponService;
+        private readonly IMessageBus _messageBus;
+        private readonly IConfiguration _configuration;
 
         public CartAPIController(IMapper mapper, AppDbContext appDbContext,
-            IProductService productService, ICouponService couponService)
+            IProductService productService, ICouponService couponService,IMessageBus messageBus, IConfiguration configuration)
         {
             try
             {
@@ -31,6 +34,8 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                 _productService = productService;
                 _response = new ResponseDto();
                 _couponService = couponService;
+                _messageBus = messageBus; 
+                _configuration = configuration;
             }
             catch (Exception ex) { }
 
@@ -187,7 +192,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             try
             {
 
-               
+                await _messageBus.PublishMessage(cartDto, _configuration.GetValue<string>("TopicAndQueueNames:EmailshoppingcartQueue"));
                 _response.Result = true;
 
             }

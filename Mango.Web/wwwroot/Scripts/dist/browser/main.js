@@ -5,7 +5,7 @@ import {
   RouterOutlet,
   ToastrModule,
   platformBrowser
-} from "./chunk-4V623VH6.js";
+} from "./chunk-TT5MZO3G.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionScheduler,
@@ -32,11 +32,11 @@ import {
 var routes = [
   {
     path: "",
-    loadChildren: () => import("./chunk-CB76RVII.js").then((m) => m.HomePageModule)
+    loadChildren: () => import("./chunk-XZGUWA6G.js").then((m) => m.HomePageModule)
   },
   {
     path: "admin",
-    loadChildren: () => import("./chunk-XEHTUXYH.js").then((m) => m.AdminModule)
+    loadChildren: () => import("./chunk-WMLWFXPL.js").then((m) => m.AdminModule)
   }
   // Add other routes as needed
 ];

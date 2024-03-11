@@ -31,7 +31,11 @@ export class CartService {
     );
   }
 
-
+  EmailCart(IcartItem:IcartItem): Observable<IResponseDto> {
+    return this.http.post<IResponseDto>(
+      this.EndpointService.endpoints.EmailCart,IcartItem
+    );
+  }
 
   addToCart(item: any) {
     this.cartItems.push(item);

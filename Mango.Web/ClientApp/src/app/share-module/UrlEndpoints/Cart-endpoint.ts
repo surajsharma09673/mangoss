@@ -3,4 +3,5 @@ export const CartEndpoint={
     ApplyCoupon:"api/Cart/ApplyCoupon",
     RemoveCart:"api/Cart/removecart",
     RemoveCoupon:"api/Cart/RemoveCoupon",
+    EmailCart:"api/Cart/EmailCart"
 }

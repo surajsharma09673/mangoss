@@ -97,6 +97,28 @@ namespace Mango.Web.Controllers
 
         }
 
+        [HttpPost("EmailCart")]
+        public async Task<IActionResult> EmailCart([FromBody] CartDto cartDto)
+        {
+            ResponseDto response = new ResponseDto();
+            try
+            {
+                var userEmail = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Email)?.FirstOrDefault()?.Value;
+                cartDto.CartHeader.Email = userEmail;
+                response = await _cartService.EmailCart(cartDto);
+                if (response != null && response.IsSuccess)
+                {
+
+                    return Ok(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(response.Message);
+            }
+            return Ok(response);
+        }
+
         private async Task<CartDto> LoadCartDtoBasedOnLoggedInUser()
         {
             var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;

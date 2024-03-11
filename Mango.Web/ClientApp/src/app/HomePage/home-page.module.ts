@@ -9,6 +9,9 @@ import { HomeComponent } from './home/home.component';
 import { ProductCardComponent } from './Product/product-card/product-card.component';
 import { ProductDetailComponent } from './Product/product-detail/product-detail.component';
 import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './cart/checkout/checkout.component';
+import { OrderDetailsCardComponent } from './cart/order-details-card/order-details-card.component';
+import { OrderSummaryComponent } from './cart/order-summary/order-summary.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { CartComponent } from './cart/cart.component';
     HomeComponent,
     ProductCardComponent,
     ProductDetailComponent,
-    CartComponent
+    CartComponent,
+    CheckoutComponent,
+    OrderDetailsCardComponent,
+    OrderSummaryComponent
     
   ],
   imports: [

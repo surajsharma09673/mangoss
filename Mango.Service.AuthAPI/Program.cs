@@ -1,3 +1,4 @@
+using Mango.MessageBus;
 using Mango.Service.AuthAPI.Models;
 using Mango.Service.AuthAPI.Service;
 using Mango.Service.AuthAPI.Service.IService;
@@ -20,6 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddScoped<IMessageBus, MessageBus>();
 
 var policyName = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
