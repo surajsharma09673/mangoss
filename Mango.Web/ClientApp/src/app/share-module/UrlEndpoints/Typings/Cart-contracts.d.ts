@@ -3,5 +3,6 @@ GetCardDetails:string,
 ApplyCoupon:string,
 RemoveCart:string,
 RemoveCoupon:string,
-EmailCart:string
+EmailCart:string,
+Checkout:string
 }

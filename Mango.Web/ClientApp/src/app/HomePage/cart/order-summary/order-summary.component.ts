@@ -59,8 +59,23 @@ export class OrderSummaryComponent implements OnInit {
     this.orderDetails = this.cartDetails;
   }
 
-  placeOrder(): void {
+ async placeOrder() {
+  if(this.orderForm.valid){
+console.log("yo")
+  await this.updateCartHeader();
+
+    this.cartService.CheckoutCart(this.cartItems).subscribe(res=>{
+      console.log("res",res);
+    })
     // Implement your place order logic here
     console.log('Placing Order:', this.orderForm.value);
+  }
+  }
+  updateCartHeader() {
+    this.cartHeader!.firstName = this.orderForm.get('firstName')?.value;
+    this.cartHeader!.lastName = this.orderForm.get('lastName')?.value;
+    this.cartHeader!.email = this.orderForm.get('email')?.value;
+    this.cartHeader!.phone = this.orderForm.get('phoneNumber')?.value;
+    // ... repeat for other properties
   }
 }

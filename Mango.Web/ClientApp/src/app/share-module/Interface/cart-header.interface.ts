@@ -4,4 +4,8 @@ export interface ICartHeader {
     couponCode: string | null;
     discount: number;
     cartTotal: number;
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    email?: string;
   }

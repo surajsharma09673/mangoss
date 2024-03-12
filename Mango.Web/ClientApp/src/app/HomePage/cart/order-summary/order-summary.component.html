@@ -14,17 +14,35 @@
             <div class="row mb-3">
               <div class="col-12">
                 <input formControlName="firstName" placeholder="First name..." class="form-control" />
+                <div *ngIf="orderForm.get('firstName')?.hasError('required') && orderForm.get('firstName')?.touched" class="text-danger">
+                  First name is required.
+                </div>
               </div>
               <div class="col-12 mt-2">
                 <input formControlName="lastName" placeholder="Last name..." class="form-control" />
+                <div *ngIf="orderForm.get('lastName')?.hasError('required') && orderForm.get('lastName')?.touched" class="text-danger">
+                  Last name is required.
+                </div>
               </div>
               <div class="col-12 mt-2">
                 <input formControlName="email" placeholder="Email..." class="form-control" />
+                <div *ngIf="orderForm.get('email')?.hasError('required') && orderForm.get('email')?.touched" class="text-danger">
+                  Email is required.
+                </div>
+                <div *ngIf="orderForm.get('email')?.hasError('email') && orderForm.get('email')?.touched" class="text-danger">
+                  Please enter a valid email address.
+                </div>
               </div>
               <div class="col-12 mt-2">
                 <input formControlName="phoneNumber" placeholder="Phone number..." class="form-control" />
+                <div *ngIf="orderForm.get('phoneNumber')?.hasError('required') && orderForm.get('phoneNumber')?.touched" class="text-danger">
+                  Phone number is required.
+                </div>
+                <div *ngIf="orderForm.get('phoneNumber')?.hasError('pattern') && orderForm.get('phoneNumber')?.touched" class="text-danger">
+                  Please enter a valid phone number.
+                </div>
               </div>
-              <div class="col-12 mt-3">
+              <div class="col-12 pt-2">
                 <label class="col-form-label">
                   Order will be ready in 30 minutes after placing the order.
                   If you place an order when the restaurant is closed, it will be ready the next day.
@@ -34,10 +52,10 @@
           </div>
           <div class="col-md-5 col-12">
             <!-- Order Details Card -->
-            <app-order-details-card [cardDetails]="cartDetails" [cartHeader]="cartHeader"></app-order-details-card>
+            <app-order-details-card [cardDetails]="cartDetails" [cartHeader]="cartHeader" [orderForm]="orderForm"></app-order-details-card>
           </div>
         </div>
-        
+       
       </div>
     </div>
   </form>

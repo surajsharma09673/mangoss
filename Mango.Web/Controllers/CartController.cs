@@ -12,9 +12,11 @@ namespace Mango.Web.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
-        public CartController(ICartService cartService)
+        private readonly IOrderService _orderService;
+        public CartController(ICartService cartService,IOrderService orderService)
         {
             _cartService = cartService;
+            _orderService = orderService;
         }
 
         [HttpPost("upsertCart")]
@@ -131,6 +133,26 @@ namespace Mango.Web.Controllers
             }
             return new CartDto();
 
+        }
+
+        [HttpPost("Checkout")]
+        public async Task<IActionResult> Checkout([FromBody] CartDto cartDto)
+        {
+            ResponseDto response = new ResponseDto();
+            try
+            {
+                response = await _orderService.CreateOrder(cartDto);
+                if (response != null && response.IsSuccess)
+                {
+
+                    return Ok(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(response.Message);
+            }
+            return Ok(response);
         }
 
     }

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ICartDetails } from '../../../share-module/Interface/cart-details.Interface';
 import { ICartHeader } from '../../../share-module/Interface/cart-header.interface';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-order-details-card',
@@ -10,4 +11,5 @@ import { ICartHeader } from '../../../share-module/Interface/cart-header.interfa
 export class OrderDetailsCardComponent {
   @Input() cardDetails: ICartDetails[]=[];
   @Input()  cartHeader: ICartHeader | undefined;
+  @Input() orderForm!: FormGroup;
 }
