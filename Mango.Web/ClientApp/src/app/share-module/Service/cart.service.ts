@@ -42,6 +42,11 @@ export class CartService {
       this.EndpointService.endpoints.Checkout,IcartItem
     );
   }
+  validateStripeSession(OrderHeaderId:number): Observable<IResponseDto> {
+    return this.http.post<IResponseDto>(
+      this.EndpointService.endpoints.ValidateStripSession,OrderHeaderId
+    );
+  }
   addToCart(item: any) {
     this.cartItems.push(item);
   }

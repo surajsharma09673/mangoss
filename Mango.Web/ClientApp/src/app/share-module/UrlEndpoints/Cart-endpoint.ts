@@ -4,5 +4,6 @@ export const CartEndpoint={
     RemoveCart:"api/Cart/removecart",
     RemoveCoupon:"api/Cart/RemoveCoupon",
     EmailCart:"api/Cart/EmailCart",
-    Checkout:"api/Cart/Checkout"
+    Checkout:"api/Cart/Checkout",
+    ValidateStripSession:"api/Cart/ValidateStripSession"
 }

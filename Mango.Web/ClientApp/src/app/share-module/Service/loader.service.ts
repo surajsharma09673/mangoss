@@ -1,16 +1,23 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, NgZone } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LoaderService {
-  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-
-  showLoader() {
-    this.isLoading.next(true);
+  public isLoading = new BehaviorSubject<boolean>(false);
+  constructor(private ngzone: NgZone) {
+    this.isLoading.next(this.isLoadings());
   }
-  hideLoader() {
-    this.isLoading.next(false);
+  setLoading(value: boolean): void {
+    this.ngzone.run(() => {
+      this.isLoading.next(value);
+    });
+  }
+
+  GetLoading$(): Observable<boolean> {
+    return this.isLoading.asObservable();
+  }
+  // Example method to check if the user is authenticated
+  isLoadings(): boolean {
+    return this.isLoading.value;
   }
 }

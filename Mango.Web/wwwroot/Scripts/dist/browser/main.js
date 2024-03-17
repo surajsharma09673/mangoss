@@ -32,11 +32,11 @@ import {
 var routes = [
   {
     path: "",
-    loadChildren: () => import("./chunk-7DKPOM5H.js").then((m) => m.HomePageModule)
+    loadChildren: () => import("./chunk-P4SO5EQH.js").then((m) => m.HomePageModule)
   },
   {
     path: "admin",
-    loadChildren: () => import("./chunk-IWH6FFIW.js").then((m) => m.AdminModule)
+    loadChildren: () => import("./chunk-YOJ5N37I.js").then((m) => m.AdminModule)
   }
   // Add other routes as needed
 ];

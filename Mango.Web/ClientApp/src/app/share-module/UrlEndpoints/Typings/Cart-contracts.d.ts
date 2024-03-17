@@ -4,5 +4,6 @@ ApplyCoupon:string,
 RemoveCart:string,
 RemoveCoupon:string,
 EmailCart:string,
-Checkout:string
+Checkout:string,
+ValidateStripSession:string
 }

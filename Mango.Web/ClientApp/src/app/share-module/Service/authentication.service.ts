@@ -4,7 +4,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private ngzone: NgZone){}
+  constructor(private ngzone: NgZone){
+    this.isAuthenticatedSubject.next(this.isAuthenticated());
+  }
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
   // Observable to track the authentication status
@@ -24,5 +26,6 @@ export class AuthenticationService {
   isAuthenticated(): boolean {
     return this.isAuthenticatedSubject.value;
   }
+  
 
 }

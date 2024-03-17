@@ -25,10 +25,10 @@ export class HeaderComponent implements OnInit,AfterViewInit {
   ) {
     this.isLoggedIn = this.authService.isAuthenticated$();
     this.IsAdmin=this.tokenService.isAdmin();
+    console.log(this.IsAdmin);
   }
 ngAfterViewInit()
 {
-  if(this.IsAdmin)
   this.getEmail();
 }
   ngOnInit() {

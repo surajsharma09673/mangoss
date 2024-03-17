@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/share-module/Component/loader/loader.component.css"],
+  "sourcesContent": [".spinner-container {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    z-index: 9999; /* Ensure it's above other content */\r\n  }\r\n  \r\n  .spinner {\r\n    width: 50px;\r\n    height: 50px;\r\n    border: 2px dotted blue; /* Change border color to blue */\r\n    border-radius: 50%;\r\n    animation: rotateSpinner 1.5s linear infinite;\r\n  }\r\n  \r\n  @keyframes rotateSpinner {\r\n    from {\r\n      transform: rotate(0deg);\r\n    }\r\n    to {\r\n      transform: rotate(360deg);\r\n    }\r\n  }\r\n  "],
+  "mappings": ";AAAA,CAAC;AACG,YAAU;AACV,OAAK;AACL,QAAM;AACN,SAAO;AACP,UAAQ;AACR,oBAAkB,KAAK,GAAG,EAAE,GAAG,EAAE,GAAG,EAAE;AACtC,WAAS;AACT,mBAAiB;AACjB,eAAa;AACb,WAAS;AACX;AAEA,CAAC;AACC,SAAO;AACP,UAAQ;AACR,UAAQ,IAAI,OAAO;AACnB,iBAAe;AACf,aAAW,cAAc,KAAK,OAAO;AACvC;AAEA,WAHa;AAIX;AACE,eAAW,OAAO;AACpB;AACA;AACE,eAAW,OAAO;AACpB;AACF;",
+  "names": []
+}

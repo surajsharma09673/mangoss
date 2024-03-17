@@ -45,10 +45,10 @@ export class RegisterComponent implements OnInit {
   }
   register(Userdata: IuserRegister) {
     if(this.registerForm.valid){
-    this.loaderservice.showLoader()
+    this.loaderservice.setLoading(true)
     this.registerService.register(Userdata).subscribe((res) => {
       console.log('registerdataa', res);
-      this.loaderservice.hideLoader()
+      this.loaderservice.setLoading(false)
     },error=> this.handleError(error));
   }
   }
@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
   {
     this.errorMessage=error.error
     setTimeout(() => {
-      this.loaderservice.hideLoader()
+      this.loaderservice.setLoading(false)
     }, 2000);
    
   }

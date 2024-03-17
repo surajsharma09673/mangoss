@@ -9,6 +9,8 @@ using Mango.Services.OrderAPI.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Stripe;
+using ProductService = Mango.Services.OrderAPI.Service.ProductService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,57 +25,70 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
-builder.Services.AddHttpClient("Product", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
+builder
+    .Services.AddHttpClient(
+        "Product",
+        u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])
+    )
+    .AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
 builder.Services.AddScoped<IMessageBus, MessageBus>();
-builder.Services.AddScoped<IProductService, ProductService>();  
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(option =>
 {
-    option.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Description = "Enter The Bearer Authorization String as Following: 'Bearer Generated-Jwt-Token'",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-
-    });
-    option.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
+    option.AddSecurityDefinition(
+        name: "Bearer",
+        securityScheme: new OpenApiSecurityScheme
         {
-       new OpenApiSecurityScheme
-       {
-           Reference=new OpenApiReference
-           {
-               Type=ReferenceType.SecurityScheme,
-               Id=JwtBearerDefaults.AuthenticationScheme
-           }
-       }, new string[]{}
+            Name = "Authorization",
+            Description =
+                "Enter The Bearer Authorization String as Following: 'Bearer Generated-Jwt-Token'",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
         }
-
-    });
-
+    );
+    option.AddSecurityRequirement(
+        new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = JwtBearerDefaults.AuthenticationScheme
+                    }
+                },
+                new string[] { }
+            }
+        }
+    );
 });
 
 var policyName = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: policyName, builder =>
-    {
-        builder.WithOrigins("https://localhost:6999")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-           .AllowCredentials();
-    });
+    options.AddPolicy(
+        name: policyName,
+        builder =>
+        {
+            builder
+                .WithOrigins("https://localhost:6999")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        }
+    );
 });
 builder.AddAppAuthentication();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -87,6 +102,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors(policyName);
 app.MapControllers();
+app.UseStaticFiles();
+StripeConfiguration.ApiKey = builder.Configuration.GetValue<string>("Strip:SecretKey");
+
 ApplyMigration();
 app.Run();
 
@@ -96,7 +114,8 @@ void ApplyMigration()
     {
         var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         if (_db.Database.GetPendingMigrations().Count() > 0)
-        { _db.Database.Migrate(); }
-
+        {
+            _db.Database.Migrate();
+        }
     }
 }

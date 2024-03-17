@@ -27,6 +27,8 @@ export class UserService {
     return this.userData
   }
 
+  
+
 
   clearUserData(): void {
     this.userData = undefined;
