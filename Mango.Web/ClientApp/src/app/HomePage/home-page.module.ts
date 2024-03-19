@@ -19,6 +19,7 @@ import { OrderService } from '../share-module/Service/Order.service';
 import { CartService } from '../share-module/Service/cart.service';
 import { HomeGuard } from '../share-module/AuthGuard/Home.guard';
 import { OrderSuccessGuard } from '../share-module/AuthGuard/order-success.guard';
+import { OrderDetailComponent } from './cart/checkout/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { OrderSuccessGuard } from '../share-module/AuthGuard/order-success.guard
     OrderConfirmationComponent,
     OrderFailComponent,
     OrderListComponent,
+    OrderDetailComponent
   ],
   imports: [HomePageRoutingModule, SharedModule],
   exports: [LoginComponent, RegisterComponent, HomeComponent],

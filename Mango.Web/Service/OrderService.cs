@@ -54,7 +54,7 @@ namespace Mango.Web.Service
                 new RequestDto
                 {
                     ApiType = SD.ApiType.GET,
-                    Url = $"{SD.OrderAPIBase}/api/OrderAPI/GetOrder?Id={OrderId}"
+                    Url = $"{SD.OrderAPIBase}/api/OrderAPI/GetOrder/{OrderId}"
                 }
             );
         }
@@ -66,7 +66,7 @@ namespace Mango.Web.Service
                 {
                     ApiType = SD.ApiType.POST,
                     Data = newStatus,
-                    Url = $"{SD.OrderAPIBase}/api/OrderAPI/UpdateOrderStatus?orderId={OrderId}"
+                    Url = $"{SD.OrderAPIBase}/api/OrderAPI/UpdateOrderStatus/{OrderId}"
                 }
             );
         }

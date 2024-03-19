@@ -7,10 +7,7 @@ import { catchError } from 'rxjs/operators';
 export class HttpService {
   private apiUrl = 'https://localhost:6999'; // Replace with your API URL
   private headers = new HttpHeaders({
-    // 'Content-Type': 'text/plain',
-    // 'Authorization': 'Bearer YourAccessToken',
-    // 'Access-Control-Allow-Origin': 'http://localhost:4200',
-    // 'Access-Control-Allow-Headers': 'Content-Type, Authorization' // Include any authentication token if needed
+    'Content-Type': 'application/json'
   });
 
   constructor(private http: HttpClient) {}

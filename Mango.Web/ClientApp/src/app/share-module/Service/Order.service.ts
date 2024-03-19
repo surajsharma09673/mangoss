@@ -22,15 +22,4 @@ export class OrderService {
       this.EndpointService.endpoints.GetAllOrders
     );
   }
-  UpdateOrderStatus(
-    orderId: number,
-    newstatus: string
-  ): Observable<IResponseDto> {
-    {
-      return this.http.post<IResponseDto>(
-        this.EndpointService.endpoints.UpdateOrderStatus + orderId,
-        newstatus
-      );
-    }
-  }
 }

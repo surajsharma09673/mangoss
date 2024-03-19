@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using IdentityModel;
+﻿using System.IdentityModel.Tokens.Jwt;
 using Mango.Web.Models;
 using Mango.Web.Service.IService;
 using Mango.Web.Utility;
@@ -10,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Mango.Services.OrderAPI.Controllers
+namespace Mango.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -33,10 +29,15 @@ namespace Mango.Services.OrderAPI.Controllers
         {
             try
             {
-                var result = await _orderService.GetOrders(OrderId);
-                if (result != null && result.IsSuccess)
+                var response = await _orderService.GetOrders(OrderId);
+                if (response != null && response.IsSuccess)
                 {
-                    return Ok(result);
+                    // Deserialize the result and return it
+                    var data = JsonConvert.DeserializeObject<OrderHeaderDto>(
+                        Convert.ToString(response.Result)
+                    );
+                    response.Result = data;
+                    return Ok(response);
                 }
             }
             catch (Exception ex)
@@ -98,7 +99,7 @@ namespace Mango.Services.OrderAPI.Controllers
         /// <param name="newStatus">The new status to set for the order.</param>
         /// <returns>Returns an IActionResult with the result of the operation.</returns>
         [HttpPost("UpdateOrderStatus/{OrderId}")]
-        public async Task<IActionResult> UpdateOrderStatus(int OrderId, string newStatus)
+        public async Task<IActionResult> UpdateOrderStatus(int OrderId, [FromBody] string newStatus)
         {
             try
             {

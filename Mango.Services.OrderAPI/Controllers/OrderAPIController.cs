@@ -15,6 +15,7 @@ namespace Mango.Services.OrderAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderAPIController : ControllerBase
     {
         private ResponseDto _responseDto;

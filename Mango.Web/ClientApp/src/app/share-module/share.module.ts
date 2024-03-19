@@ -28,7 +28,7 @@ import {
   ENDPOINT_INSTANCES,
 } from './Service/ApiEndpoint.service';
 import { PopupService } from './Service/Popup.service';
-import { JWT_OPTIONS, JwtInterceptor, JwtModule } from '@auth0/angular-jwt';
+import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { UserService } from './Service/UserService.seervice';
 import { SearchService } from './Service/search.service';
 import { HomeProductService } from './Service/home-product.service';
@@ -41,6 +41,8 @@ import { CouponEndpoint } from './UrlEndpoints/Coupon-endpoints';
 import { OrderEndpoint } from './UrlEndpoints/Order-endpoint';
 import { ProductEndpoint } from './UrlEndpoints/Product-endpoints';
 import { LoaderComponent } from './Component/loader/loader.component';
+import { JwtInterceptor } from './Interceptors/jwt-interceptor.service';
+import { ScrollToTopDirective } from './Directive/directive scroll-to-top.directive';
 
 
 const Authenticationendpoint = {
@@ -105,7 +107,8 @@ const SHARED_DECLARATIONS = [
   PaginationComponent,
   ConfirmationDialogComponent,
   TruncatePipe,
-  LoaderComponent
+  LoaderComponent,
+  ScrollToTopDirective
   // Add more declarations as needed
 ];
 @NgModule({

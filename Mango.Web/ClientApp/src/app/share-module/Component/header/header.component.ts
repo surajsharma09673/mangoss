@@ -73,4 +73,7 @@ ngAfterViewInit()
   navigateTo(route: string): void {
     this.router.navigate([route]);
   }
+  viewCart(){
+    this.router.navigate(['/home/cart']);
+  }
 }

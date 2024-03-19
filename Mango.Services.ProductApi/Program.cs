@@ -2,8 +2,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Mongo.Services.ProductApi;
 using Mongo.Services.CouponAPI.Extensions;
+using Mongo.Services.ProductApi;
 using Mongo.Services.ProductApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,53 +19,61 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(option =>
 {
-    option.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Description = "Enter The Bearer Authorization String as Following: 'Bearer Generated-Jwt-Token'",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-
-    });
-    option.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
+    option.AddSecurityDefinition(
+        name: "Bearer",
+        securityScheme: new OpenApiSecurityScheme
         {
-       new OpenApiSecurityScheme
-       {
-           Reference=new OpenApiReference
-           {
-               Type=ReferenceType.SecurityScheme,
-               Id=JwtBearerDefaults.AuthenticationScheme
-           }
-       }, new string[]{}
+            Name = "Authorization",
+            Description =
+                "Enter The Bearer Authorization String as Following: 'Bearer Generated-Jwt-Token'",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
         }
-
-    });
-
+    );
+    option.AddSecurityRequirement(
+        new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = JwtBearerDefaults.AuthenticationScheme
+                    }
+                },
+                new string[] { }
+            }
+        }
+    );
 });
 
 var policyName = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: policyName, builder =>
-    {
-        builder.WithOrigins("https://localhost:6999")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-           .AllowCredentials();
-    });
+    options.AddPolicy(
+        name: policyName,
+        builder =>
+        {
+            builder
+                .WithOrigins("https://localhost:6999")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        }
+    );
 });
 builder.AddAppAuthentication();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -77,6 +85,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStaticFiles();
 app.UseCors(policyName);
 app.MapControllers();
 ApplyMigration();
@@ -88,7 +97,8 @@ void ApplyMigration()
     {
         var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         if (_db.Database.GetPendingMigrations().Count() > 0)
-        { _db.Database.Migrate(); }
-
+        {
+            _db.Database.Migrate();
+        }
     }
 }
