@@ -6924,11 +6924,8 @@ var _HttpService = class _HttpService {
   constructor(http) {
     this.http = http;
     this.apiUrl = "https://localhost:6999";
-    this.headers = new HttpHeaders({
-      // 'Content-Type': 'text/plain',
-      // 'Authorization': 'Bearer YourAccessToken',
-      // 'Access-Control-Allow-Origin': 'http://localhost:4200',
-      // 'Access-Control-Allow-Headers': 'Content-Type, Authorization' // Include any authentication token if needed
+    this.defaultHeaders = new HttpHeaders({
+      "Content-Type": "application/json"
     });
   }
   handleError(error) {
@@ -6937,38 +6934,45 @@ var _HttpService = class _HttpService {
     }
     return throwError(error);
   }
-  performRequest(method, path, data) {
+  performRequest(method, path, data, headers) {
     const url = `${this.apiUrl}/${path}`;
     let request$;
+    const mergedHeaders = headers ? this.mergeHeaders(this.defaultHeaders, headers) : this.defaultHeaders;
     switch (method.toLowerCase()) {
       case "get":
-        request$ = this.http.get(url, { headers: this.headers });
+        request$ = this.http.get(url, { headers: mergedHeaders });
         break;
       case "post":
-        request$ = this.http.post(url, data, { headers: this.headers });
+        request$ = this.http.post(url, data, { headers: mergedHeaders });
         break;
       case "put":
-        request$ = this.http.put(url, data, { headers: this.headers });
+        request$ = this.http.put(url, data, { headers: mergedHeaders });
         break;
       case "delete":
-        request$ = this.http.delete(url, { headers: this.headers });
+        request$ = this.http.delete(url, { headers: mergedHeaders });
         break;
       default:
         throw new Error("Unsupported HTTP method");
     }
     return request$.pipe(catchError(this.handleError));
   }
-  get(path) {
-    return this.performRequest("get", path);
+  mergeHeaders(defaultHeaders, customHeaders) {
+    const mergedHeaders = new HttpHeaders();
+    defaultHeaders.keys().forEach((key) => mergedHeaders.append(key, defaultHeaders.getAll(key)));
+    customHeaders.keys().forEach((key) => mergedHeaders.append(key, customHeaders.getAll(key)));
+    return mergedHeaders;
   }
-  post(path, data) {
-    return this.performRequest("post", path, data);
+  get(path, headers) {
+    return this.performRequest("get", path, void 0, headers);
   }
-  put(path, data) {
-    return this.performRequest("put", path, data);
+  post(path, data, headers) {
+    return this.performRequest("post", path, data, headers);
   }
-  delete(path) {
-    return this.performRequest("delete", path);
+  put(path, data, headers) {
+    return this.performRequest("put", path, data, headers);
+  }
+  delete(path, headers) {
+    return this.performRequest("delete", path, void 0, headers);
   }
 };
 _HttpService.\u0275fac = function HttpService_Factory(t) {
@@ -45157,4 +45161,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-T5ZMNQLN.js.map
+//# sourceMappingURL=chunk-MA72CYPL.js.map

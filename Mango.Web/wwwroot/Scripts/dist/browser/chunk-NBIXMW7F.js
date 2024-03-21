@@ -20,10 +20,10 @@ import {
   TokenService,
   Validators,
   ɵNgNoValidate
-} from "./chunk-T5ZMNQLN.js";
+} from "./chunk-MA72CYPL.js";
 import {
   ActivatedRoute,
-  HttpClient,
+  HttpHeaders,
   Router,
   RouterModule,
   RouterOutlet
@@ -656,12 +656,18 @@ var _ProductService = class _ProductService {
     return this.http.get(url);
   }
   createProduct(product) {
+    const headers = new HttpHeaders({
+      "Content-Type": "multipart/form-data"
+    });
     var url = this.endpointservice.endpoints.CreateProduct;
-    return this.http.post(url, product);
+    return this.http.post(url, product, headers);
   }
   updateProduct(product) {
+    const headers = new HttpHeaders({
+      "Content-Type": "multipart/form-data"
+    });
     var url = this.endpointservice.endpoints.UpdateProduct;
-    return this.http.post(url, product);
+    return this.http.post(url, product, headers);
   }
   DeleteProduct(data) {
     var url = this.endpointservice.endpoints.DeleteProduct;
@@ -680,7 +686,7 @@ var ProductFormConfig = {
     name: [Validators.required],
     price: [Validators.required, Validators.min(0)],
     categoryName: [Validators.required],
-    imageUrl: [Validators.required]
+    image: [Validators.required]
   },
   formInstance: {
     productId: "",
@@ -688,7 +694,7 @@ var ProductFormConfig = {
     description: "",
     price: 0,
     categoryName: "",
-    imageUrl: ""
+    image: ""
   }
 };
 
@@ -743,11 +749,15 @@ var _ProductFormComponent = class _ProductFormComponent {
     this.formSubmitted = new EventEmitter();
     this.BackButton = new EventEmitter();
     this.ProductIdHide = false;
+    this.selectedFile = null;
+  }
+  onFileSelected(event) {
+    this.selectedFile = event.target.files[0];
   }
   submitForm() {
     if (this.productForm.valid) {
-      console.log(this.productForm.getRawValue());
-      this.formSubmitted.emit(this.productForm.getRawValue());
+      const formData = this.productForm.getRawValue();
+      this.formSubmitted.emit({ formData, file: this.selectedFile });
       this.initForm();
     }
   }
@@ -775,7 +785,7 @@ var _ProductFormComponent = class _ProductFormComponent {
 _ProductFormComponent.\u0275fac = function ProductFormComponent_Factory(t) {
   return new (t || _ProductFormComponent)(\u0275\u0275directiveInject(FormService));
 };
-_ProductFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProductFormComponent, selectors: [["app-product-form"]], inputs: { initialFormValues: "initialFormValues", ProductIdHide: "ProductIdHide" }, outputs: { formSubmitted: "formSubmitted", BackButton: "BackButton" }, decls: 37, vars: 7, consts: [[1, "mb-4", "border", "rounded", "p-4", "shadow", 2, "max-width", "800px", "margin", "auto", 3, "formGroup"], [1, "text-start", "mb-3"], [1, "btn", "btn-outline-primary", "btn-sm", 3, "click"], [1, "bi", "bi-arrow-left"], [1, "row"], ["class", "col-md-4 mb-3", 4, "ngIf"], [1, "col-md-4", "mb-3"], ["for", "name", 1, "form-label", "custom-label"], ["type", "text", "id", "name", "formControlName", "name", "placeholder", "Enter product name", 1, "form-control", "form-control-lg", "custom-input"], ["class", "text-danger", 4, "ngIf"], ["for", "description", 1, "form-label", "custom-label"], ["type", "text", "id", "description", "formControlName", "description", "placeholder", "Enter description", 1, "form-control", "form-control-lg", "custom-input"], ["for", "price", 1, "form-label", "custom-label"], [1, "input-group"], ["id", "priceLabel", 1, "input-group-text", "custom-input"], ["type", "number", "id", "price", "formControlName", "price", "placeholder", "Enter price", 1, "form-control", "form-control-lg", "custom-input"], ["for", "categoryName", 1, "form-label", "custom-label"], ["type", "text", "id", "categoryName", "formControlName", "categoryName", "placeholder", "Enter category name", 1, "form-control", "form-control-lg", "custom-input"], ["for", "imageUrl", 1, "form-label", "custom-label"], ["type", "text", "id", "imageUrl", "formControlName", "imageUrl", "placeholder", "Enter image URL", 1, "form-control", "form-control-lg", "custom-input"], [1, "text-center"], [1, "btn", "btn-primary", "btn-sm", "btn-hover", 3, "click"], ["for", "productId", 1, "form-label", "custom-label"], ["type", "text", "id", "productId", "formControlName", "productId", "placeholder", "Enter product ID", 1, "form-control", "form-control-lg", "custom-input"], [1, "text-danger"]], template: function ProductFormComponent_Template(rf, ctx) {
+_ProductFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProductFormComponent, selectors: [["app-product-form"]], inputs: { initialFormValues: "initialFormValues", ProductIdHide: "ProductIdHide" }, outputs: { formSubmitted: "formSubmitted", BackButton: "BackButton" }, decls: 37, vars: 7, consts: [[1, "mb-4", "border", "rounded", "p-4", "shadow", 2, "max-width", "800px", "margin", "auto", 3, "formGroup"], [1, "text-start", "mb-3"], [1, "btn", "btn-outline-primary", "btn-sm", 3, "click"], [1, "bi", "bi-arrow-left"], [1, "row"], ["class", "col-md-4 mb-3", 4, "ngIf"], [1, "col-md-4", "mb-3"], ["for", "name", 1, "form-label", "custom-label"], ["type", "text", "id", "name", "formControlName", "name", "placeholder", "Enter product name", 1, "form-control", "form-control-lg", "custom-input"], ["class", "text-danger", 4, "ngIf"], ["for", "description", 1, "form-label", "custom-label"], ["type", "text", "id", "description", "formControlName", "description", "placeholder", "Enter description", 1, "form-control", "form-control-lg", "custom-input"], ["for", "price", 1, "form-label", "custom-label"], [1, "input-group"], ["id", "priceLabel", 1, "input-group-text", "custom-input"], ["type", "number", "id", "price", "formControlName", "price", "placeholder", "Enter price", 1, "form-control", "form-control-lg", "custom-input"], ["for", "categoryName", 1, "form-label", "custom-label"], ["type", "text", "id", "categoryName", "formControlName", "categoryName", "placeholder", "Enter category name", 1, "form-control", "form-control-lg", "custom-input"], ["for", "imageUrl", 1, "form-label", "custom-label"], ["type", "file", "id", "image", "formControlName", "image", "placeholder", "please upload image", 1, "form-control", "form-control-lg", "custom-input", 3, "change"], [1, "text-center"], [1, "btn", "btn-primary", "btn-sm", "btn-hover", 3, "click"], ["for", "productId", 1, "form-label", "custom-label"], ["type", "text", "id", "productId", "formControlName", "productId", "placeholder", "Enter product ID", 1, "form-control", "form-control-lg", "custom-input"], [1, "text-danger"]], template: function ProductFormComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "form", 0)(1, "div", 1)(2, "button", 2);
     \u0275\u0275listener("click", function ProductFormComponent_Template_button_click_2_listener() {
@@ -812,9 +822,13 @@ _ProductFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ 
     \u0275\u0275template(28, ProductFormComponent_div_28_Template, 2, 0, "div", 9);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(29, "div", 6)(30, "label", 18);
-    \u0275\u0275text(31, "Image URL");
+    \u0275\u0275text(31, "Image ");
     \u0275\u0275elementEnd();
-    \u0275\u0275element(32, "input", 19);
+    \u0275\u0275elementStart(32, "input", 19);
+    \u0275\u0275listener("change", function ProductFormComponent_Template_input_change_32_listener($event) {
+      return ctx.onFileSelected($event);
+    });
+    \u0275\u0275elementEnd();
     \u0275\u0275template(33, ProductFormComponent_div_33_Template, 2, 0, "div", 9);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(34, "div", 20)(35, "button", 21);
@@ -842,7 +856,7 @@ _ProductFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ 
     \u0275\u0275advance(5);
     \u0275\u0275property("ngIf", ((tmp_5_0 = ctx.productForm.get("categoryName")) == null ? null : tmp_5_0.hasError("required")) && ((tmp_5_0 = ctx.productForm.get("categoryName")) == null ? null : tmp_5_0.touched));
     \u0275\u0275advance(5);
-    \u0275\u0275property("ngIf", ((tmp_6_0 = ctx.productForm.get("imageUrl")) == null ? null : tmp_6_0.hasError("required")) && ((tmp_6_0 = ctx.productForm.get("imageUrl")) == null ? null : tmp_6_0.touched));
+    \u0275\u0275property("ngIf", ((tmp_6_0 = ctx.productForm.get("image")) == null ? null : tmp_6_0.hasError("required")) && ((tmp_6_0 = ctx.productForm.get("image")) == null ? null : tmp_6_0.touched));
   }
 }, dependencies: [\u0275NgNoValidate, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, NgControlStatusGroup, NgIf, FormGroupDirective, FormControlName], styles: ["\n\n/*# sourceMappingURL=product-form.component.css.map */"] });
 var ProductFormComponent = _ProductFormComponent;
@@ -1165,6 +1179,7 @@ var _ProductListComponent = class _ProductListComponent {
     this.showProductForm = false;
   }
   editProduct(product) {
+    console.log(product);
     this.showProductForm = true;
     this.selectedProduct = product;
     this.productFormInitialValues = product;
@@ -1174,19 +1189,20 @@ var _ProductListComponent = class _ProductListComponent {
     if (!newproduct) {
       return;
     }
-    const existingProductIndex = this.Product.findIndex((product) => product.productId === newproduct.productId);
+    const existingProductIndex = this.Product.findIndex((product2) => product2.productId === newproduct.formData.productId);
     if (existingProductIndex === -1) {
-      this.createOrUpdateCoupon(newproduct, 0);
+      var product = this.buildFormData(newproduct, 0);
+      this.createOrUpdateCoupon(product, 0);
     } else {
-      this.Product[existingProductIndex] = newproduct;
-      this.createOrUpdateCoupon(newproduct, 1);
+      this.Product[existingProductIndex] = newproduct.formData;
+      var product = this.buildFormData(newproduct, 1);
+      this.createOrUpdateCoupon(product, 1);
     }
     this.displayedProducts = this.Product;
     this.showProductForm = false;
   }
   createOrUpdateCoupon(product, type) {
     if (type == 0) {
-      product.productId = 0;
       this.productService.createProduct(product).subscribe((res) => {
         if (res.isSuccess) {
           this.initializeProducts();
@@ -1201,6 +1217,20 @@ var _ProductListComponent = class _ProductListComponent {
         }
       });
     }
+  }
+  buildFormData(newproduct, type) {
+    const formData = new FormData();
+    formData.append("Name", newproduct.formData.name || "");
+    formData.append("Description", newproduct.formData.description || "");
+    formData.append("Price", newproduct.formData.price.toString() || "0");
+    formData.append("CategoryName", newproduct.formData.categoryName || "");
+    formData.append("Image", newproduct.file);
+    if (type === 0) {
+      formData.append("ProductId", "0");
+    } else {
+      formData.append("ProductId", newproduct.formData.productId.toString() || "");
+    }
+    return formData;
   }
   showConfirmation() {
     const confirmationData = {
@@ -1288,11 +1318,12 @@ var _AdminOrderService = class _AdminOrderService {
   }
   updateOrderStatus(orderId, newStatus) {
     const url = `${this.EndpointService.endpoints.UpdateOrderStatus}${orderId}`;
-    return this.http.post(url, newStatus);
+    const requestBody = `"${newStatus}"`;
+    return this.http.post(url, requestBody);
   }
 };
 _AdminOrderService.\u0275fac = function AdminOrderService_Factory(t) {
-  return new (t || _AdminOrderService)(\u0275\u0275inject(HttpClient), \u0275\u0275inject(ApiEndpointService));
+  return new (t || _AdminOrderService)(\u0275\u0275inject(HttpService), \u0275\u0275inject(ApiEndpointService));
 };
 _AdminOrderService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AdminOrderService, factory: _AdminOrderService.\u0275fac });
 var AdminOrderService = _AdminOrderService;
@@ -1716,6 +1747,9 @@ var _AdminOrderDetailComponent = class _AdminOrderDetailComponent {
   }
   UpdateOrderStatus(orderHeaderId, status) {
     this.orderService.updateOrderStatus(orderHeaderId, status).subscribe((res) => {
+      if (res.isSuccess) {
+        this.GoOrder();
+      }
       console.log(res, "hey data comming");
     });
   }
@@ -1786,4 +1820,4 @@ var AdminModule = _AdminModule;
 export {
   AdminModule
 };
-//# sourceMappingURL=chunk-IRELGP65.js.map
+//# sourceMappingURL=chunk-NBIXMW7F.js.map

@@ -40,9 +40,9 @@
       </div>
   
       <div class="col-md-4 mb-3">
-        <label for="imageUrl" class="form-label custom-label">Image URL</label>
-        <input type="text" class="form-control form-control-lg custom-input" id="imageUrl" formControlName="imageUrl" placeholder="Enter image URL">
-        <div *ngIf="productForm.get('imageUrl')?.hasError('required') && productForm.get('imageUrl')?.touched" class="text-danger">Image URL is required.</div>
+        <label for="imageUrl" class="form-label custom-label">Image </label>
+        <input type="file" class="form-control form-control-lg custom-input" id="image" formControlName="image" placeholder="please upload image" (change)="onFileSelected($event)">
+        <div *ngIf="productForm.get('image')?.hasError('required') && productForm.get('image')?.touched" class="text-danger">Image URL is required.</div>
       </div>
     </div>
   

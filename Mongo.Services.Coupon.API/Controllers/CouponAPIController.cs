@@ -123,6 +123,7 @@ namespace Mongo.Services.AuthAPI.Controllers
         }
 
         [HttpDelete]
+        [Route("{Id:int}")]
         [Authorize(Roles = "ADMIN")]
         public ResponseDto Delete(int Id)
         {

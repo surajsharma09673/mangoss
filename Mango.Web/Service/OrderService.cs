@@ -43,7 +43,7 @@ namespace Mango.Web.Service
                 new RequestDto
                 {
                     ApiType = SD.ApiType.GET,
-                    Url = $"{SD.OrderAPIBase}/api/OrderAPI/GetOrders?userId={Userid}"
+                    Url = $"{SD.OrderAPIBase}/api/OrderAPI/GetOrders/{Userid}"
                 }
             );
         }

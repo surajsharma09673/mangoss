@@ -72,7 +72,7 @@ namespace Mango.Web.Controllers
         }
 
         [HttpPost("CreateProduct")]
-        public async Task<IActionResult> CreateProduct([FromBody] ProductDto product)
+        public async Task<IActionResult> CreateProduct([FromForm] ProductDto product)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace Mango.Web.Controllers
         }
 
         [HttpPost("UpdateProduct")]
-        public async Task<IActionResult> UpdateProduct([FromBody] ProductDto product)
+        public async Task<IActionResult> UpdateProduct([FromForm] ProductDto product)
         {
             try
             {

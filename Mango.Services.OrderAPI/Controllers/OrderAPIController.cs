@@ -15,7 +15,6 @@ namespace Mango.Services.OrderAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class OrderAPIController : ControllerBase
     {
         private ResponseDto _responseDto;
@@ -47,7 +46,7 @@ namespace Mango.Services.OrderAPI.Controllers
         /// GET: api/OrderAPI/GetOrders
         /// Get orders based on user ID (admin can get all orders)
         /// </summary>
-        [HttpGet("GetOrders")]
+        [HttpGet("GetOrders/{userId?}")]
         public async Task<ResponseDto> GetOrders(string userId = "")
         {
             try
