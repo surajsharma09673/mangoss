@@ -6923,7 +6923,7 @@ var UserService = _UserService;
 var _HttpService = class _HttpService {
   constructor(http) {
     this.http = http;
-    this.apiUrl = "https://localhost:6999";
+    this.apiUrl = "https://mangowebs.azurewebsites.net";
     this.defaultHeaders = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -45161,4 +45161,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-MA72CYPL.js.map
+//# sourceMappingURL=chunk-RYNE3RO7.js.map

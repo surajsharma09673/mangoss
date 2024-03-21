@@ -26,65 +26,83 @@ builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IMessageBus, MessageBus>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
-builder.Services.AddHttpClient("Product", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
-builder.Services.AddHttpClient("Coupon", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
-
+builder
+    .Services.AddHttpClient(
+        "Product",
+        u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])
+    )
+    .AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
+builder
+    .Services.AddHttpClient(
+        "Coupon",
+        u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"])
+    )
+    .AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(option =>
 {
-    option.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Description = "Enter The Bearer Authorization String as Following: 'Bearer Generated-Jwt-Token'",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-
-    });
-    option.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
+    option.AddSecurityDefinition(
+        name: "Bearer",
+        securityScheme: new OpenApiSecurityScheme
         {
-       new OpenApiSecurityScheme
-       {
-           Reference=new OpenApiReference
-           {
-               Type=ReferenceType.SecurityScheme,
-               Id=JwtBearerDefaults.AuthenticationScheme
-           }
-       }, new string[]{}
+            Name = "Authorization",
+            Description =
+                "Enter The Bearer Authorization String as Following: 'Bearer Generated-Jwt-Token'",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
         }
-
-    });
-
+    );
+    option.AddSecurityRequirement(
+        new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = JwtBearerDefaults.AuthenticationScheme
+                    }
+                },
+                new string[] { }
+            }
+        }
+    );
 });
 
 var policyName = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: policyName, builder =>
-    {
-        builder.WithOrigins("https://localhost:6999")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-           .AllowCredentials();
-    });
+    options.AddPolicy(
+        name: policyName,
+        builder =>
+        {
+            builder
+                .WithOrigins("https://localhost:6999")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        }
+    );
 });
 builder.AddAppAuthentication();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cart API");
+    c.RoutePrefix = string.Empty;
+});
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
@@ -100,7 +118,8 @@ void ApplyMigration()
     {
         var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         if (_db.Database.GetPendingMigrations().Count() > 0)
-        { _db.Database.Migrate(); }
-
+        {
+            _db.Database.Migrate();
+        }
     }
 }

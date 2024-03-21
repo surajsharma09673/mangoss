@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class HttpService {
-  private apiUrl = 'https://localhost:6999'; // Replace with your API URL
+  private apiUrl = 'https://mangowebs.azurewebsites.net'; // Replace with your API URL
   private defaultHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });

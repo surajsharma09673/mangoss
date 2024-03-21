@@ -20,7 +20,7 @@ import {
   TokenService,
   Validators,
   ɵNgNoValidate
-} from "./chunk-MA72CYPL.js";
+} from "./chunk-RYNE3RO7.js";
 import {
   ActivatedRoute,
   HttpHeaders,
@@ -663,8 +663,11 @@ var _ProductService = class _ProductService {
     return this.http.post(url, product, headers);
   }
   updateProduct(product) {
+    const headers = new HttpHeaders({
+      "Content-Type": "multipart/form-data"
+    });
     var url = this.endpointservice.endpoints.UpdateProduct;
-    return this.http.post(url, product);
+    return this.http.post(url, product, headers);
   }
   DeleteProduct(data) {
     var url = this.endpointservice.endpoints.DeleteProduct;
@@ -1817,4 +1820,4 @@ var AdminModule = _AdminModule;
 export {
   AdminModule
 };
-//# sourceMappingURL=chunk-SIAGHXE5.js.map
+//# sourceMappingURL=chunk-TDTSHSRY.js.map

@@ -1,7 +1,9 @@
 {
   "version": 3,
-  "sources": ["src/app/HomePage/cart/checkout/order-list/order-list.component.css"],
+  "sources": ["src/app/admin/Orders/order-list/order-list.component.css"],
   "sourcesContent": ["/* coupon-list.component.css */\r\n\r\n.container {\r\n    margin-top: 20px;\r\n  }\r\n  \r\n  .d-flex {\r\n    align-items: center;\r\n  }\r\n  \r\n  .btn-primary, .btn-info, .btn-danger {\r\n    padding: 8px 16px;\r\n    font-size: 14px;\r\n  }\r\n  \r\n  .input-group {\r\n    width: 300px;\r\n  }\r\n  \r\n  .table {\r\n    width: 100%;\r\n    margin-bottom: 20px;\r\n    background-color: #fff;\r\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\r\n    border-radius: 5px;\r\n  }\r\n  \r\n  .table th, .table td {\r\n    padding: 12px;\r\n    text-align: center;\r\n  }\r\n  \r\n  .table thead {\r\n    background-color: #343a40;\r\n    color: #fff;\r\n  }\r\n  \r\n  .table tbody tr:hover {\r\n    background-color: #f8f9fa;\r\n    cursor: pointer;\r\n  }\r\n  \r\n  .table tbody tr.selected {\r\n    background-color: #007bff;\r\n    color: #fff;\r\n  }\r\n  \r\n\r\n  \r\n  /* Adjust styling based on your preferences */\r\n  /* coupon-list.component.scss */\r\n  \r\n  \r\n  \r\n  "],
   "mappings": ";AAEA,CAAC;AACG,cAAY;AACd;AAEA,CAAC;AACC,eAAa;AACf;AAEA,CAAC;AAAa,CAAC;AAAU,CAAC;AACxB,WAAS,IAAI;AACb,aAAW;AACb;AAEA,CAAC;AACC,SAAO;AACT;AAEA,CAAC;AACC,SAAO;AACP,iBAAe;AACf,oBAAkB;AAClB,cAAY,EAAE,EAAE,KAAK,KAAK,CAAC,EAAE,CAAC,EAAE,CAAC,EAAE;AACnC,iBAAe;AACjB;AAEA,CARC,MAQM;AAAI,CARV,MAQiB;AAChB,WAAS;AACT,cAAY;AACd;AAEA,CAbC,MAaM;AACL,oBAAkB;AAClB,SAAO;AACT;AAEA,CAlBC,MAkBM,MAAM,EAAE;AACb,oBAAkB;AAClB,UAAQ;AACV;AAEA,CAvBC,MAuBM,MAAM,EAAE,CAAC;AACd,oBAAkB;AAClB,SAAO;AACT;",
   "names": []
+}
+es": []
 }
