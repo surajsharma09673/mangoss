@@ -110,7 +110,6 @@ namespace Mango.Services.ProductApi.Controllers
                 }
                 else if (actionType == ActionType.Update)
                 {
-                    _appDbContext.Products.Update(product);
                     HandleImageDeletion(product.ImageLocalPath);
                 }
 

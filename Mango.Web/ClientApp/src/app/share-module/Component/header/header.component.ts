@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit,AfterViewInit {
   isLoggedIn: Observable<boolean>;
   email: string | undefined;
   IsAdmin: boolean = false;
+  isCollapsed: boolean=true;
   constructor(
     private router: Router,
     private authService: AuthenticationService,

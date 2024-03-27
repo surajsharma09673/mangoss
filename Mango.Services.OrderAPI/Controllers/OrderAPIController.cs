@@ -117,6 +117,31 @@ namespace Mango.Services.OrderAPI.Controllers
         /// </summary>
         [Authorize]
         [HttpPost("CreateOrder")]
+        public async Task<ResponseDto> CreateOrder([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                OrderHeaderDto orderHeaderDto = _Mapper.Map<OrderHeaderDto>(cartDto.CartHeader);
+                orderHeaderDto.OrderTime = DateTime.Now;
+                orderHeaderDto.Status = SD.Status_Pending;
+                orderHeaderDto.OrderDetails = _Mapper.Map<IEnumerable<OrderDetailsDto>>(
+                    cartDto.CartDetails
+                );
+                OrderHeader orderCreated = _dbContext
+                    .OrderHeaders.Add(_Mapper.Map<OrderHeader>(orderHeaderDto))
+                    .Entity;
+                await _dbContext.SaveChangesAsync();
+                orderHeaderDto.OrderHeaderId = orderCreated.OrderHeaderId;
+                _responseDto.Result = orderHeaderDto;
+            }
+            catch (Exception ex)
+            {
+                _responseDto.IsSuccess = false;
+                _responseDto.Message = ex.Message;
+            }
+            return _responseDto;
+        }
+
         /// <summary>
         /// POST: api/OrderAPI/CreateStripeSession
         /// Create a new Stripe session

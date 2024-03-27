@@ -6923,7 +6923,7 @@ var UserService = _UserService;
 var _HttpService = class _HttpService {
   constructor(http) {
     this.http = http;
-    this.apiUrl = "https://mangowebs.azurewebsites.net";
+    this.apiUrl = window.location.hostname === "localhost" ? "https://localhost:6999" : "https://mangowebs.azurewebsites.net";
     this.defaultHeaders = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -23738,6 +23738,7 @@ var _HeaderComponent = class _HeaderComponent {
     this.tokenService = tokenService;
     this.loginService = loginService;
     this.IsAdmin = false;
+    this.isCollapsed = true;
     this.isLoggedIn = this.authService.isAuthenticated$();
     this.IsAdmin = this.tokenService.isAdmin();
     console.log(this.IsAdmin);
@@ -23787,12 +23788,15 @@ var _HeaderComponent = class _HeaderComponent {
 _HeaderComponent.\u0275fac = function HeaderComponent_Factory(t) {
   return new (t || _HeaderComponent)(\u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(AuthenticationService), \u0275\u0275directiveInject(UserService), \u0275\u0275directiveInject(TokenService), \u0275\u0275directiveInject(LoginService));
 };
-_HeaderComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["app-header"]], decls: 26, vars: 9, consts: [[1, "navbar", "navbar-expand-lg", "navbar-light", "bg-light"], [1, "container-fluid"], ["href", "#", 1, "navbar-brand"], ["type", "button", "data-bs-toggle", "collapse", "data-bs-target", "#navbarNavDropdown", "aria-controls", "navbarNavDropdown", "aria-expanded", "false", "aria-label", "Toggle navigation", 1, "navbar-toggler"], [1, "navbar-toggler-icon"], ["id", "navbarNavDropdown", 1, "collapse", "navbar-collapse"], [1, "navbar-nav"], [1, "nav-item"], ["aria-current", "page", "href", "#", 1, "nav-link", "active"], ["href", "#", 1, "nav-link"], ["class", "nav-item", 4, "ngIf"], ["ngbDropdown", "", "class", "nav-item dropdown", 4, "ngIf"], [1, "d-flex", "ml-auto", "align-items-center"], ["class", "me-2", "style", "font-family: 'Arial', sans-serif; font-size: 16px;", 4, "ngIf"], [4, "ngIf", "ngIfElse"], ["notLoggedIn", ""], [1, "nav-link", 2, "cursor", "pointer", 3, "click"], ["ngbDropdown", "", 1, "nav-item", "dropdown"], ["ngbDropdownToggle", "", "ref", "", "id", "navbarDropdownMenuLink", "role", "button", "data-bs-toggle", "dropdown", "aria-expanded", "false", 1, "nav-link", "dropdown-toggle"], ["ngbDropdownMenu", "", "aria-labelledby", "navbarDropdownMenuLink", 1, "dropdown-menu"], ["ngbDropdownItem", "", 1, "dropdown-item", 3, "click"], [1, "me-2", 2, "font-family", "'Arial', sans-serif", "font-size", "16px"], [1, "btn", "btn-outline-danger", 3, "click"], [1, "btn", "btn-outline-success", "me-2", 3, "click"], [1, "btn", "btn-outline-primary", "me-2", 3, "click"]], template: function HeaderComponent_Template(rf, ctx) {
+_HeaderComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["app-header"]], decls: 26, vars: 10, consts: [[1, "navbar", "navbar-expand-lg", "navbar-light", "bg-light"], [1, "container-fluid"], ["href", "#", 1, "navbar-brand"], ["type", "button", "data-bs-toggle", "collapse", "data-bs-target", "#navbarNavDropdown", "aria-controls", "navbarNavDropdown", "aria-expanded", "false", "aria-label", "Toggle navigation", 1, "navbar-toggler", 3, "click"], [1, "navbar-toggler-icon"], ["id", "navbarNavDropdown", 1, "collapse", "navbar-collapse", 3, "ngbCollapse"], [1, "navbar-nav"], [1, "nav-item"], ["aria-current", "page", "href", "#", 1, "nav-link", "active"], ["href", "#", 1, "nav-link"], ["class", "nav-item", 4, "ngIf"], ["ngbDropdown", "", "class", "nav-item dropdown", 4, "ngIf"], [1, "d-flex", "ml-auto", "align-items-center"], ["class", "me-2", "style", "font-family: 'Arial', sans-serif; font-size: 16px;", 4, "ngIf"], [4, "ngIf", "ngIfElse"], ["notLoggedIn", ""], [1, "nav-link", 2, "cursor", "pointer", 3, "click"], ["ngbDropdown", "", 1, "nav-item", "dropdown"], ["ngbDropdownToggle", "", "ref", "", "id", "navbarDropdownMenuLink", "role", "button", "data-bs-toggle", "dropdown", "aria-expanded", "false", 1, "nav-link", "dropdown-toggle"], ["ngbDropdownMenu", "", "aria-labelledby", "navbarDropdownMenuLink", 1, "dropdown-menu"], ["ngbDropdownItem", "", 1, "dropdown-item", 3, "click"], [1, "me-2", 2, "font-family", "'Arial', sans-serif", "font-size", "16px"], [1, "btn", "btn-outline-danger", 3, "click"], [1, "btn", "btn-outline-success", "me-2", 3, "click"], [1, "btn", "btn-outline-primary", "me-2", 3, "click"]], template: function HeaderComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "nav", 0)(1, "div", 1)(2, "a", 2);
     \u0275\u0275text(3, "Mango");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(4, "button", 3);
+    \u0275\u0275listener("click", function HeaderComponent_Template_button_click_4_listener() {
+      return ctx.isCollapsed = !ctx.isCollapsed;
+    });
     \u0275\u0275element(5, "span", 4);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(6, "div", 5)(7, "ul", 6)(8, "li", 7)(9, "a", 8);
@@ -23816,16 +23820,18 @@ _HeaderComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type:
   }
   if (rf & 2) {
     const _r5 = \u0275\u0275reference(25);
-    \u0275\u0275advance(17);
-    \u0275\u0275property("ngIf", \u0275\u0275pipeBind1(18, 5, ctx.isLoggedIn) && !ctx.IsAdmin);
+    \u0275\u0275advance(6);
+    \u0275\u0275property("ngbCollapse", ctx.isCollapsed);
+    \u0275\u0275advance(11);
+    \u0275\u0275property("ngIf", \u0275\u0275pipeBind1(18, 6, ctx.isLoggedIn) && !ctx.IsAdmin);
     \u0275\u0275advance(2);
     \u0275\u0275property("ngIf", ctx.IsAdmin);
     \u0275\u0275advance(2);
     \u0275\u0275property("ngIf", ctx.email);
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", \u0275\u0275pipeBind1(23, 7, ctx.isLoggedIn) == true)("ngIfElse", _r5);
+    \u0275\u0275property("ngIf", \u0275\u0275pipeBind1(23, 8, ctx.isLoggedIn) == true)("ngIfElse", _r5);
   }
-}, dependencies: [NgIf, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, NgbDropdownItem, AsyncPipe], styles: ["\n\n/*# sourceMappingURL=header.component.css.map */"] });
+}, dependencies: [NgIf, NgbCollapse, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, NgbDropdownItem, AsyncPipe], styles: ["\n\n/*# sourceMappingURL=header.component.css.map */"] });
 var HeaderComponent = _HeaderComponent;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HeaderComponent, { className: "HeaderComponent", filePath: "src\\app\\share-module\\Component\\header\\header.component.ts", lineNumber: 14 });
@@ -45161,4 +45167,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-RYNE3RO7.js.map
+//# sourceMappingURL=chunk-G6MNVK3J.js.map
