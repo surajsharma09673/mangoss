@@ -1,0 +1,30 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/ProductApi",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesproductapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ProductApi",
+      "UpstreamHttpMethod": [ "Get", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ProductApi/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesproductapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ProductApi/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ]
+    }
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://mangogateways.azurewebsites.net"
+  }
+}

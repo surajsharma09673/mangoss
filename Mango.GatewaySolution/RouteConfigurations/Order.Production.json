@@ -1,0 +1,41 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI",
+      "UpstreamHttpMethod": [ "Get", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI/GetOrder/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI/GetOrder/{id}",
+      "UpstreamHttpMethod": [ "Get","DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI/GetOrders/{Userid}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI/GetOrders/{Userid}",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://mangogateways.azurewebsites.net"
+  }
+}

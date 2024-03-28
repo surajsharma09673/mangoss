@@ -12,22 +12,30 @@ public static class ConfigurationMerger
         var orderJsonPath = Path.Combine(
             environment.ContentRootPath,
             "RouteConfigurations",
-            "Order.json"
+            environment.EnvironmentName.ToString().ToLower().Equals("production")
+                ? "Order.Production.json"
+                : "Order.json" // Use coupon.production.json in production
         );
         var productJsonPath = Path.Combine(
             environment.ContentRootPath,
             "RouteConfigurations",
-            "Product.json"
+            environment.EnvironmentName.ToString().ToLower().Equals("production")
+                ? "Product.Production.json"
+                : "Product.json" // Use coupon.production.json in production
         );
         var couponJsonPath = Path.Combine(
             environment.ContentRootPath,
             "RouteConfigurations",
-            "Coupon.json"
+            environment.EnvironmentName.ToString().ToLower().Equals("production")
+                ? "Coupon.Production.json"
+                : "Coupon.json" // Use coupon.production.json in production
         );
         var ShoppingCartJsonPath = Path.Combine(
             environment.ContentRootPath,
             "RouteConfigurations",
-            "ShoppingCart.json"
+            environment.EnvironmentName.ToString().ToLower().Equals("production")
+                ? "ShoppingCart.Production.json"
+                : "ShoppingCart.json" // Use coupon.production.json in production
         );
 
         // Load and parse the JSON files
