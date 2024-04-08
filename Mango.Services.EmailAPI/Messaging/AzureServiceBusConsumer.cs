@@ -11,10 +11,10 @@ namespace Mango.Services.EmailAPI.Messaging
     public class AzureServiceBusConsumer : IAzureServiceBusConsumer
     {
         private readonly EmailService _emailService;
+        private readonly IConfiguration _configuration;
         private readonly string ServiceBusConnectionString;
         private readonly string EmailCartQueue;
         private readonly string registerUserQueue;
-        private readonly IConfiguration _configuration;
         private ServiceBusProcessor _EmailCartProcessor;
         private ServiceBusProcessor _registerUserProcessor;
         private ServiceBusProcessor _EmailOrderPlaceProcessor;

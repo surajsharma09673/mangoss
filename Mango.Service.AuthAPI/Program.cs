@@ -1,5 +1,6 @@
 using Mango.MessageBus;
 using Mango.Service.AuthAPI.Models;
+using Mango.Service.AuthAPI.RabbitMQSender;
 using Mango.Service.AuthAPI.Service;
 using Mango.Service.AuthAPI.Service.IService;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IMessageBus, MessageBus>();
+builder.Services.AddScoped<IRabbitMQAuthMessageSender, RabbitMQAuthMessageSender>();
 
 var policyName = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
