@@ -5,7 +5,7 @@ export const ProductFormConfig = {
       name: [Validators.required],
       price: [Validators.required,Validators.min(0)],
       categoryName: [Validators.required],
-      imageUrl: [Validators.required],
+      image: [Validators.required],
     },
     formInstance: {
       productId: '',
@@ -13,7 +13,8 @@ export const ProductFormConfig = {
       description: '',
       price: 0,
       categoryName: '',
-      imageUrl: '',
+      image: '',
+
     },
   };
   

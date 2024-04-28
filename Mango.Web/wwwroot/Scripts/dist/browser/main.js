@@ -5,7 +5,7 @@ import {
   RouterOutlet,
   ToastrModule,
   platformBrowser
-} from "./chunk-TT5MZO3G.js";
+} from "./chunk-XMPA47FX.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionScheduler,
@@ -26,17 +26,17 @@ import {
   ɵɵdefineNgModule,
   ɵɵelement,
   ɵɵinvalidFactory
-} from "./chunk-NDXHV5NK.js";
+} from "./chunk-TIXEYLPM.js";
 
 // src/app/app-routing.module.ts
 var routes = [
   {
     path: "",
-    loadChildren: () => import("./chunk-7DKPOM5H.js").then((m) => m.HomePageModule)
+    loadChildren: () => import("./chunk-4KKD4HCR.js").then((m) => m.HomePageModule)
   },
   {
     path: "admin",
-    loadChildren: () => import("./chunk-IWH6FFIW.js").then((m) => m.AdminModule)
+    loadChildren: () => import("./chunk-76XYUKDI.js").then((m) => m.AdminModule)
   }
   // Add other routes as needed
 ];
@@ -94,7 +94,7 @@ var _AsyncAnimationRendererFactory = class _AsyncAnimationRendererFactory {
    * @internal
    */
   loadImpl() {
-    const moduleImpl = this.moduleImpl ?? import("./chunk-VBIOLO3C.js");
+    const moduleImpl = this.moduleImpl ?? import("./chunk-EEDH3HUW.js");
     return moduleImpl.catch((e) => {
       throw new RuntimeError(5300, (typeof ngDevMode === "undefined" || ngDevMode) && "Async loading for animations package was enabled, but loading failed. Angular falls back to using regular rendering. No animations will be displayed and their styles won't be applied.");
     }).then(({

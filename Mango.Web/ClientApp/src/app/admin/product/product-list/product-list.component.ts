@@ -13,7 +13,7 @@ import { SearchService } from '../../../share-module/Service/search.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  isLoading: boolean = false; 
+  isLoading: boolean = false;
   pageSize = 5;
   currentPage = 1;
   totalPages = 0;
@@ -30,10 +30,10 @@ export class ProductListComponent implements OnInit {
     public paginationService: PaginationService,
     private productService: ProductService,
     private toastService: ToastService,
-    private searchService:SearchService
+    private searchService: SearchService
   ) {}
-   ngOnInit() {
-     this.initializeProducts();
+  ngOnInit() {
+    this.initializeProducts();
   }
   createProduct() {
     console.log('Creating a new coupon');
@@ -43,14 +43,13 @@ export class ProductListComponent implements OnInit {
   }
 
   async search(): Promise<void> {
-    this.searchService.updateSearchTerm(this.searchTerm)
+    this.searchService.updateSearchTerm(this.searchTerm);
     this.displayedProducts = await this.searchService.search(this.Product);
-    console.log("here");
+    console.log('here');
   }
 
-
   onSearchTermChange(): void {
-    console.log("here,inserchterm")
+    console.log('here,inserchterm');
     this.search();
   }
 
@@ -96,7 +95,7 @@ export class ProductListComponent implements OnInit {
     this.setPage(page);
   }
 
-   initializeProducts() {
+  initializeProducts() {
     this.isLoading = true;
     this.productService.getAllProduct().subscribe((product) => {
       this.isLoading = false;
@@ -104,7 +103,7 @@ export class ProductListComponent implements OnInit {
       this.Product = product;
       this.displayedProducts = product;
       this.Paginate();
-    })
+    });
   }
 
   Paginate() {
@@ -144,35 +143,36 @@ export class ProductListComponent implements OnInit {
   }
 
   editProduct(product: IProduct) {
+    console.log(product);
     this.showProductForm = true;
     this.selectedProduct = product;
     this.productFormInitialValues = product;
     this.ProductIdHide = false;
-    // Implement logic for editing a coupon
   }
-  onFormSubmitted(newproduct: IProduct) {
+  onFormSubmitted(newproduct: any) {
     if (!newproduct) {
       return;
     }
 
     const existingProductIndex = this.Product.findIndex(
-      (product) => product.productId === newproduct.productId
+      (product) => product.productId === newproduct.formData.productId
     );
 
     if (existingProductIndex === -1) {
-      this.createOrUpdateCoupon(newproduct, 0);
+      var product = this.buildFormData(newproduct, 0);
+      this.createOrUpdateCoupon(product, 0);
     } else {
-      this.Product[existingProductIndex] = newproduct;
-      this.createOrUpdateCoupon(newproduct, 1);
+      this.Product[existingProductIndex] = newproduct.formData;
+      var product = this.buildFormData(newproduct, 1);
+      this.createOrUpdateCoupon(product, 1);
     }
 
     this.displayedProducts = this.Product;
     this.showProductForm = false;
   }
 
-  private createOrUpdateCoupon(product: IProduct, type: number) {
+  private createOrUpdateCoupon(product: any, type: number) {
     if (type == 0) {
-      product.productId = 0;
       this.productService.createProduct(product).subscribe((res) => {
         if (res.isSuccess) {
           this.initializeProducts();
@@ -196,7 +196,25 @@ export class ProductListComponent implements OnInit {
       });
     }
   }
+  private buildFormData(newproduct: any, type: number): FormData {
+    // Assuming newproduct is an object containing formData and file properties
+    const formData = new FormData();
+    formData.append('Name', newproduct.formData.name || '');
+    formData.append('Description', newproduct.formData.description || '');
+    formData.append('Price', newproduct.formData.price.toString() || '0');
+    formData.append('CategoryName', newproduct.formData.categoryName || '');
+    formData.append('Image', newproduct.file);
+    
 
+    // Check if type is 0 and append productId accordingly
+    if (type === 0) {
+      formData.append('ProductId', '0'); // Assuming productId should be '0' for new product
+    } else {
+      formData.append('ProductId', newproduct.formData.productId.toString() || '');
+    }
+
+    return formData;
+  }
   showConfirmation(): void {
     const confirmationData: ConfirmationDialogData = {
       title: 'Confirmation',

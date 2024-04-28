@@ -1,0 +1,40 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/CouponAPI",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mongoservicescouponapi.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CouponAPI",
+      "UpstreamHttpMethod": [ "GET","POST","PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/CouponAPI/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mongoservicescouponapi.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CouponAPI/{id}",
+      "UpstreamHttpMethod": [ "Get","Delete"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/CouponAPI/getbycode/{code}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mongoservicescouponapi.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CouponAPI/getbycode/{code}",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://mangogateways.azurewebsites.net"
+  }
+}

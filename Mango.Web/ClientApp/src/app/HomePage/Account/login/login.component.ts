@@ -52,11 +52,15 @@ export class LoginComponent implements OnInit {
       if(res.isSuccess)
       {
         if(this.tokenService.isAdmin())
+        {
+        console.log(this.tokenService.isAdmin())
         this.router.navigate(['/admin/dashboard']);
-        this.router.navigate(['/home']);
+        
+        }else{
+          this.router.navigate(['/home']);
 
-      }
-      console.log('logindata', res);
+        }
+        }
     });
   }
   toggleLoginPopup() {

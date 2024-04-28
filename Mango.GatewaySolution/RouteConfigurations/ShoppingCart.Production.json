@@ -1,0 +1,74 @@
+{
+  "Routes": [
+
+    {
+      "DownstreamPathTemplate": "/api/CartAPI/GetCart/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesshoppingcartapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CartAPI/GetCart/{userId}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/CartAPI/CartUpsert",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesshoppingcartapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CartAPI/CartUpsert",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/CartAPI/RemoveCart",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesshoppingcartapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CartAPI/RemoveCart",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/CartAPI/ApplyCoupon",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesshoppingcartapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CartAPI/ApplyCoupon",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/CartAPI/EmailCartRequest",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesshoppingcartapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CartAPI/EmailCartRequest",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/CartAPI/RemoveCoupon",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesshoppingcartapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/CartAPI/RemoveCoupon",
+      "UpstreamHttpMethod": [ "POST" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://mangogateways.azurewebsites.net"
+  }
+}

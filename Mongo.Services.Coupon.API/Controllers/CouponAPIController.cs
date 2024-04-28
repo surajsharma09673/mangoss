@@ -17,7 +17,6 @@ namespace Mongo.Services.AuthAPI.Controllers
         private readonly IMapper mapper;
         private ResponseDto _response;
 
-
         public CouponAPIController(AppDbContext appDbContext, IMapper mapper)
         {
             this.appDbContext = appDbContext;
@@ -32,7 +31,6 @@ namespace Mongo.Services.AuthAPI.Controllers
             {
                 IEnumerable<Coupon> obj = appDbContext.Coupons.ToList();
                 _response.Result = mapper.Map<IEnumerable<CouponDto>>(obj);
-
             }
             catch (Exception ex)
             {
@@ -41,6 +39,7 @@ namespace Mongo.Services.AuthAPI.Controllers
             }
             return _response;
         }
+
         [HttpGet]
         [Route("{id:int}")]
         public ResponseDto Get(int id)
@@ -49,8 +48,6 @@ namespace Mongo.Services.AuthAPI.Controllers
             {
                 Coupon obj = appDbContext.Coupons.FirstOrDefault(op => op.CouponId == id);
                 _response.Result = mapper.Map<CouponDto>(obj);
-
-
             }
             catch (Exception ex)
             {
@@ -59,16 +56,17 @@ namespace Mongo.Services.AuthAPI.Controllers
             }
             return _response;
         }
+
         [HttpGet]
         [Route("getbycode/{code}")]
         public ResponseDto Get(string code)
         {
             try
             {
-                Coupon obj = appDbContext.Coupons.FirstOrDefault(op => op.CouponCode.ToLower() == code.ToLower());
+                Coupon obj = appDbContext.Coupons.FirstOrDefault(op =>
+                    op.CouponCode.ToLower() == code.ToLower()
+                );
                 _response.Result = mapper.Map<CouponDto>(obj);
-
-
             }
             catch (Exception ex)
             {
@@ -79,14 +77,24 @@ namespace Mongo.Services.AuthAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles ="ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Post([FromBody] CouponDto couponDto)
         {
             try
             {
-                Coupon obj =mapper.Map<Coupon>(couponDto);
-                 appDbContext.Coupons.Add(obj);
-                 appDbContext.SaveChanges();
+                Coupon obj = mapper.Map<Coupon>(couponDto);
+                appDbContext.Coupons.Add(obj);
+                appDbContext.SaveChanges();
+
+                var options = new Stripe.CouponCreateOptions
+                {
+                    AmountOff = (long)(couponDto.DiscountAmount * 100),
+                    Name = couponDto.CouponCode,
+                    Currency = "inr",
+                    Id = couponDto.CouponCode,
+                };
+                var service = new Stripe.CouponService();
+                service.Create(options);
             }
             catch (Exception ex)
             {
@@ -115,15 +123,18 @@ namespace Mongo.Services.AuthAPI.Controllers
         }
 
         [HttpDelete]
+        [Route("{Id:int}")]
         [Authorize(Roles = "ADMIN")]
         public ResponseDto Delete(int Id)
         {
             try
             {
-               
-                Coupon obj=appDbContext.Coupons.First(u=>u.CouponId==Id);
+                Coupon obj = appDbContext.Coupons.First(u => u.CouponId == Id);
                 appDbContext.Coupons.Remove(obj);
-                appDbContext.SaveChanges() ;
+                appDbContext.SaveChanges();
+
+                var service = new Stripe.CouponService();
+                service.Delete(obj.CouponCode);
             }
             catch (Exception ex)
             {
@@ -132,6 +143,5 @@ namespace Mongo.Services.AuthAPI.Controllers
             }
             return _response;
         }
-
     }
 }

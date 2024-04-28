@@ -1,21 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Mango</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li ngbDropdown class="nav-item dropdown" *ngIf="IsAdmin">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Mango</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" (click)="isCollapsed = !isCollapsed" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngbCollapse]="isCollapsed">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <!-- View Cart option -->
+        <li class="nav-item" *ngIf=" (isLoggedIn |async)  && !IsAdmin"> <!-- Show only if user is logged in -->
+          <a class="nav-link" style="cursor: pointer;" (click)="viewCart()">View Cart</a>
+        </li>
+         <li ngbDropdown class="nav-item dropdown" *ngIf="IsAdmin">
             <a ngbDropdownToggle class="nav-link dropdown-toggle" ref id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Content Management
             </a>
@@ -27,26 +31,25 @@
                     <a (click)="navigateTo('/admin/dashboard/product')" ngbDropdownItem class="dropdown-item">Product</a>
                 </li>
                 <li>
+                  <a (click)="navigateTo('/admin/dashboard/order')" ngbDropdownItem class="dropdown-item">Order</a>
+              </li>
+                <li>
                     <a (click)="navigateTo('/admin/something-else')" ngbDropdownItem class="dropdown-item">Something else here</a>
                 </li>
             </ul>
           </li>
-        </ul>
-      </div>
-      
-      <!-- Right-aligned buttons with Welcome text and Logout button -->
-      <div class="d-flex ml-auto align-items-center">
-        <span class="me-2" *ngIf="email" style="font-family: 'Arial', sans-serif; font-size: 16px;">Welcome, {{ email }}!</span>
-        <ng-container *ngIf="(isLoggedIn | async) == true; else notLoggedIn">
-          <!-- User is logged in, show Logout button -->
-          <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
-        </ng-container>
-        <ng-template #notLoggedIn>
-          <!-- User is not logged in, show Login and Register buttons -->
-          <button class="btn btn-outline-success me-2" (click)="navigateToLogin()">Login</button>
-          <button class="btn btn-outline-primary me-2" (click)="register()">Register</button>
-        </ng-template>
-      </div>
+      </ul>
     </div>
-  </nav>
-  
+    
+    <div class="d-flex ml-auto align-items-center">
+      <span class="me-2" *ngIf="email" style="font-family: 'Arial', sans-serif; font-size: 16px;">Welcome, {{ email }}!</span>
+      <ng-container *ngIf="(isLoggedIn | async) == true; else notLoggedIn">
+        <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+      </ng-container>
+      <ng-template #notLoggedIn>
+        <button class="btn btn-outline-success me-2" (click)="navigateToLogin()">Login</button>
+        <button class="btn btn-outline-primary me-2" (click)="register()">Register</button>
+      </ng-template>
+    </div>
+  </div>
+</nav>

@@ -4,15 +4,17 @@ import { CartService } from '../../../share-module/Service/cart.service';
 import { IcartItem } from '../../../share-module/Interface/cart-item.interface';
 import { ICartDetails } from '../../../share-module/Interface/cart-details.Interface';
 import { ICartHeader } from '../../../share-module/Interface/cart-header.interface';
+import { Router } from '@angular/router';
+import { IStripeResponse } from '../../../share-module/Interface/StripeResponse.model';
 
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
-  styleUrls: ['./order-summary.component.css']
+  styleUrls: ['./order-summary.component.css'],
 })
 export class OrderSummaryComponent implements OnInit {
   orderForm!: FormGroup;
-  orderDetails: any[]=[]; 
+  orderDetails: any[] = [];
   cartItems!: IcartItem;
   cartHeader: ICartHeader | undefined;
   cartDetails: ICartDetails[] = [];
@@ -20,12 +22,17 @@ export class OrderSummaryComponent implements OnInit {
   CouponCodeAdded: boolean = false;
   // Replace with your actual data
 
-  constructor(private fb: FormBuilder,private cartService :CartService,private  zone:NgZone) { }
+  constructor(
+    private fb: FormBuilder,
+    private cartService: CartService,
+    private zone: NgZone,
+    private Router :Router
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.getOrderDetails();
-    this.loadCartItems() // Replace with your actual method to fetch order details
+    this.loadCartItems(); // Replace with your actual method to fetch order details
   }
 
   private initForm(): void {
@@ -53,23 +60,26 @@ export class OrderSummaryComponent implements OnInit {
     });
   }
 
-
   private getOrderDetails(): void {
     // Replace with your actual method to fetch order details
     this.orderDetails = this.cartDetails;
   }
 
- async placeOrder() {
-  if(this.orderForm.valid){
-console.log("yo")
-  await this.updateCartHeader();
+  async placeOrder() {
+    if (this.orderForm.valid) {
+      await this.updateCartHeader();
 
-    this.cartService.CheckoutCart(this.cartItems).subscribe(res=>{
-      console.log("res",res);
-    })
-    // Implement your place order logic here
-    console.log('Placing Order:', this.orderForm.value);
-  }
+      this.cartService.CheckoutCart(this.cartItems).subscribe((res) => {
+        if (res?.result) {
+          const stripeResponse = res.result as IStripeResponse;
+          console.log("stripeResponse",stripeResponse);
+          this.redirectToStripeCheckout(stripeResponse.stripeSessionUrl);
+        }
+      //  this.Router.navigate(["home/OrderConfirm"])
+      });
+      // Implement your place order logic here
+      console.log('Placing Order:', this.orderForm.value);
+    }
   }
   updateCartHeader() {
     this.cartHeader!.firstName = this.orderForm.get('firstName')?.value;
@@ -77,5 +87,10 @@ console.log("yo")
     this.cartHeader!.email = this.orderForm.get('email')?.value;
     this.cartHeader!.phone = this.orderForm.get('phoneNumber')?.value;
     // ... repeat for other properties
+  }
+  redirectToStripeCheckout(StripeCheckoutUrl:string) {
+    const stripeCheckoutUrl = StripeCheckoutUrl
+    // Redirect the current tab to the Stripe Checkout URL
+    window.location.href = stripeCheckoutUrl;
   }
 }

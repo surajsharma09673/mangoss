@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit,AfterViewInit {
   isLoggedIn: Observable<boolean>;
   email: string | undefined;
   IsAdmin: boolean = false;
+  isCollapsed: boolean=true;
   constructor(
     private router: Router,
     private authService: AuthenticationService,
@@ -25,10 +26,10 @@ export class HeaderComponent implements OnInit,AfterViewInit {
   ) {
     this.isLoggedIn = this.authService.isAuthenticated$();
     this.IsAdmin=this.tokenService.isAdmin();
+    console.log(this.IsAdmin);
   }
 ngAfterViewInit()
 {
-  if(this.IsAdmin)
   this.getEmail();
 }
   ngOnInit() {
@@ -72,5 +73,8 @@ ngAfterViewInit()
   }
   navigateTo(route: string): void {
     this.router.navigate([route]);
+  }
+  viewCart(){
+    this.router.navigate(['/home/cart']);
   }
 }

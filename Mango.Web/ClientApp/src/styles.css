@@ -3,11 +3,12 @@
 @import 'material-icons/iconfont/material-icons.css';
 
 
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* Example Modal CSS Styles */
 
-  
+
 /* Example Modal CSS Styles */
 .modal-overlay {
     position: fixed;
@@ -97,3 +98,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     outline: none; /* Remove the default focus outline */
     border-color: #42a5f5; /* Change border color on focus */
   }
+
+  .btn-scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #007bff; /* Change color as needed */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .btn-scroll-top:hover {
+    background-color: #0056b3; /* Change hover color as needed */
+  }
+  
+  .mat-icon {
+    font-size: 24px;
+    vertical-align: middle;
+  }
+  

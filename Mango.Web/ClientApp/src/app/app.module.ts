@@ -6,6 +6,9 @@ import { SharedModule } from "./share-module/share.module";
 import { AdminModule } from "./admin/admin.module";
 import { ToastrModule } from "ngx-toastr";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { LoaderComponent } from "./share-module/Component/loader/loader.component";
+import { LoaderService } from "./share-module/Service/loader.service";
+import { ScrollToTopDirective } from "./share-module/Directive/directive scroll-to-top.directive";
 
 
 
@@ -22,7 +25,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   providers: [  
   
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })

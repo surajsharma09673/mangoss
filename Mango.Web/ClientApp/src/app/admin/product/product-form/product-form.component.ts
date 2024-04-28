@@ -15,13 +15,17 @@ export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;
   @Input() initialFormValues: any;
   @Input() ProductIdHide: boolean = false;
+  selectedFile: File | null = null;
 
   constructor(private formService: FormService) {}
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
 
   submitForm(): void {
     if (this.productForm.valid) {
-      console.log(this.productForm.getRawValue());
-      this.formSubmitted.emit(this.productForm.getRawValue());
+      const formData = this.productForm.getRawValue();
+      this.formSubmitted.emit({ formData, file: this.selectedFile });
       this.initForm(); // Reset the form after submission
     }
   }

@@ -13,36 +13,40 @@ namespace Mango.Web.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
-        public ProductController(IProductService productService,ICartService cartService)
+
+        public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService= productService;
-            _cartService= cartService;
+            _productService = productService;
+            _cartService = cartService;
         }
+
         [HttpGet("GetAllProduct")]
         public async Task<IActionResult> GetAllProduct()
         {
             List<ProductDto>? list = new();
             try
             {
-                ResponseDto response =await _productService.GetAllProductAsync();
+                ResponseDto response = await _productService.GetAllProductAsync();
 
-                if(response !=null && response.IsSuccess==true) {
-                    list = JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
+                if (response != null && response.IsSuccess == true)
+                {
+                    list = JsonConvert.DeserializeObject<List<ProductDto>>(
+                        Convert.ToString(response.Result)
+                    );
                     return Ok(list);
                 }
                 else
                 {
                     return BadRequest(response);
                 }
-
-            }catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
             }
-
         }
 
         [HttpGet("GetProductByID/{id}")]
-        
         public async Task<IActionResult> GetProductByID(int id)
         {
             try
@@ -51,28 +55,27 @@ namespace Mango.Web.Controllers
                 ResponseDto response = await _productService.GetProductByIdAsync(id);
                 if (response != null && response.IsSuccess == true)
                 {
-                    list = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+                    list = JsonConvert.DeserializeObject<ProductDto>(
+                        Convert.ToString(response.Result)
+                    );
                     return Ok(list);
                 }
                 else
                 {
                     return BadRequest(response);
                 }
-
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         [HttpPost("CreateProduct")]
-        public async Task<IActionResult> CreateProduct([FromBody] ProductDto product)
+        public async Task<IActionResult> CreateProduct([FromForm] ProductDto product)
         {
             try
             {
-
                 ResponseDto response = await _productService.CreateProductAsync(product);
                 if (response != null && response.IsSuccess == true)
                 {
@@ -82,14 +85,13 @@ namespace Mango.Web.Controllers
                 {
                     return BadRequest(response);
                 }
-
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
+
         [HttpPost("ProductDetails")]
         public async Task<IActionResult> AddProductDetail([FromBody] ProductDto product)
         {
@@ -99,7 +101,10 @@ namespace Mango.Web.Controllers
                 {
                     CartHeader = new CartHeaderDto()
                     {
-                        UserId = User.Claims.Where(u => u.Type == JwtClaimTypes.Subject)?.FirstOrDefault().Value
+                        UserId = User
+                            .Claims.Where(u => u.Type == JwtClaimTypes.Subject)
+                            ?.FirstOrDefault()
+                            .Value
                     }
                 };
 
@@ -107,15 +112,12 @@ namespace Mango.Web.Controllers
                 {
                     Count = product.Count,
                     ProductId = product.ProductId,
-
-
                 };
                 List<CartDetailsDto> cartDetailsDtos = new() { cartDetails };
 
                 cart.CartDetails = cartDetailsDtos;
                 ResponseDto response = await _cartService.UpsertCartAsync(cart);
 
-                
                 if (response != null && response.IsSuccess == true)
                 {
                     return Ok(response);
@@ -124,21 +126,18 @@ namespace Mango.Web.Controllers
                 {
                     return BadRequest(response);
                 }
-
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         [HttpPost("UpdateProduct")]
-        public async Task<IActionResult> UpdateProduct([FromBody] ProductDto product)
+        public async Task<IActionResult> UpdateProduct([FromForm] ProductDto product)
         {
             try
             {
-
                 ResponseDto response = await _productService.UpdateProductAsync(product);
                 if (response != null && response.IsSuccess == true)
                 {
@@ -148,23 +147,21 @@ namespace Mango.Web.Controllers
                 {
                     return BadRequest(response);
                 }
-
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         [HttpPost("DeleteProduct")]
-        
         public async Task<IActionResult> DeleteProduct([FromBody] ProductDto product)
         {
             try
             {
-
-                ResponseDto response = await _productService.DeleteProductByIdAsync(product.ProductId);
+                ResponseDto response = await _productService.DeleteProductByIdAsync(
+                    product.ProductId
+                );
                 if (response != null && response.IsSuccess == true)
                 {
                     return Ok(response);
@@ -173,14 +170,11 @@ namespace Mango.Web.Controllers
                 {
                     return BadRequest(response);
                 }
-
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
-
     }
 }

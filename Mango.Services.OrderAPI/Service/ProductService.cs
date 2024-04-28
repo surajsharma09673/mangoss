@@ -1,7 +1,7 @@
-﻿using Mango.Services.OrderAPI.Models.Dto;
+﻿using System.Text.Json.Serialization;
+using Mango.Services.OrderAPI.Models.Dto;
 using Mango.Services.OrderAPI.Service.IService;
 using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 
 namespace Mango.Services.OrderAPI.Service
 {
@@ -13,6 +13,7 @@ namespace Mango.Services.OrderAPI.Service
         {
             _httpClientFactory = httpClientFactory;
         }
+
         public async Task<IEnumerable<ProductDto>> GetProductsAsync()
         {
             var client = _httpClientFactory.CreateClient("Product");
@@ -21,12 +22,11 @@ namespace Mango.Services.OrderAPI.Service
             var resp = JsonConvert.DeserializeObject<ResponseDto>(apicontent);
             if (resp != null && resp.IsSuccess)
             {
-                return JsonConvert.DeserializeObject<IEnumerable<ProductDto>>(Convert.ToString(resp.Result));
-
+                return JsonConvert.DeserializeObject<IEnumerable<ProductDto>>(
+                    Convert.ToString(resp.Result)
+                );
             }
             return new List<ProductDto>();
         }
-
-      
     }
 }

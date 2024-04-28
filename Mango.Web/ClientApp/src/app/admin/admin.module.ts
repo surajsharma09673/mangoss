@@ -11,6 +11,9 @@ import { ProductFormComponent } from './product/product-form/product-form.compon
 import { ProductComponent } from './product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductService } from './Service/admin-product.service';
+import { AdminOrderService } from './Service/admin-Order.service';
+import { AdminOrderListComponent } from './Orders/order-list/order-list.component';
+import { AdminOrderDetailComponent } from './Orders/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +23,11 @@ import { ProductService } from './Service/admin-product.service';
     ProductFormComponent,
     ProductComponent,
     ProductListComponent,
+    AdminOrderListComponent,
+    AdminOrderDetailComponent
   ],
   imports: [AdminRoutingModule, SharedModule],
-  providers: [CouponService, ProductService],
+  providers: [CouponService, ProductService,AdminOrderService],
   exports: [CouponComponent, CouponFormComponent],
 })
 export class AdminModule {}

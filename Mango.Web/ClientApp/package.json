@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^17.2.2",
     "@angular/platform-browser-dynamic": "^17.2.2",
     "@angular/router": "^17.2.2",
+    "@auth0/angular-jwt": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
@@ -27,9 +28,9 @@
     "material-icons": "^1.13.12",
     "ngx-toastr": "^18.0.0",
     "rxjs": "~7.8.0",
+    "spinkit": "^2.0.1",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.2",
-    "@auth0/angular-jwt": "^5.2.0"
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.2.1",

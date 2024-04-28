@@ -1,11 +1,16 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using AutoMapper;
 using Mango.Services.ProductApi.Models;
 using Mango.Services.ProductApi.Models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 using Mongo.Services.ProductApi.Data;
+using static Mango.Services.ProductApi.Utility.SD;
 
 namespace Mango.Services.ProductApi.Controllers
 {
@@ -19,18 +24,18 @@ namespace Mango.Services.ProductApi.Controllers
 
         public ProductApiController(AppDbContext appDbContext, IMapper mapper)
         {
-            _appDbContext=appDbContext;
-            _mapper=mapper; 
+            _appDbContext = appDbContext;
+            _mapper = mapper;
             _response = new ResponseDto();
         }
+
         [HttpGet]
-        public  ResponseDto GetProduct()
+        public ResponseDto GetProduct()
         {
             try
             {
                 IEnumerable<Product> obj = _appDbContext.Products.ToList();
                 _response.Result = _mapper.Map<IEnumerable<ProductDto>>(obj);
-
             }
             catch (Exception ex)
             {
@@ -42,13 +47,14 @@ namespace Mango.Services.ProductApi.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        public ResponseDto GetProductById(int id)
+        public async Task<ResponseDto> GetProductById(int id)
         {
             try
             {
-               Product obj = _appDbContext.Products.FirstOrDefault(u=>u.ProductId==id);
+                Product obj = await _appDbContext.Products.FirstOrDefaultAsync(u =>
+                    u.ProductId == id
+                );
                 _response.Result = _mapper.Map<ProductDto>(obj);
-
             }
             catch (Exception ex)
             {
@@ -60,39 +66,18 @@ namespace Mango.Services.ProductApi.Controllers
 
         [HttpPost]
         [Authorize(Roles = "ADMIN")]
-        public ResponseDto CreateProduct([FromBody] ProductDto productDto)
+        public ResponseDto CreateProduct([FromForm] ProductDto productDto)
         {
-            try
-            {
-                Product obj = _mapper.Map<Product>(productDto);
-                _appDbContext.Products.Add(obj);
-                _appDbContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.Message = ex.Message;
-            }
-            return _response;
+            return HandleProductAction(productDto, ActionType.Create);
         }
 
         [HttpPut]
         [Authorize(Roles = "ADMIN")]
         public ResponseDto UpdateProduct(ProductDto productDto)
         {
-            try
-            {
-                Product obj = _mapper.Map<Product>(productDto);
-                _appDbContext.Products.Update(obj);
-                _appDbContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.Message = ex.Message;
-            }
-            return _response;
+            return HandleProductAction(productDto, ActionType.Update);
         }
+
         [HttpDelete]
         [Route("{Id:int}")]
         [Authorize(Roles = "ADMIN")]
@@ -100,8 +85,8 @@ namespace Mango.Services.ProductApi.Controllers
         {
             try
             {
-
                 Product obj = _appDbContext.Products.First(u => u.ProductId == Id);
+                HandleImageDeletion(obj.ImageLocalPath);
                 _appDbContext.Products.Remove(obj);
                 _appDbContext.SaveChanges();
             }
@@ -111,6 +96,76 @@ namespace Mango.Services.ProductApi.Controllers
                 _response.Message = ex.Message;
             }
             return _response;
+        }
+
+        private ResponseDto HandleProductAction(ProductDto productDto, ActionType actionType)
+        {
+            try
+            {
+                Product product = _mapper.Map<Product>(productDto);
+                if (actionType == ActionType.Create)
+                {
+                    _appDbContext.Products.Add(product);
+                    _appDbContext.SaveChanges();
+                }
+                else if (actionType == ActionType.Update)
+                {
+                    HandleImageDeletion(product.ImageLocalPath);
+                }
+
+                HandleImageUpload(productDto, product);
+                _response.Result = _mapper.Map<ProductDto>(product);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
+        private void HandleImageUpload(ProductDto productDto, Product product)
+        {
+            if (productDto.Image != null)
+            {
+                string filename = product.ProductId + Path.GetExtension(productDto.Image.FileName);
+                string filepath = @"wwwroot\ProductImages\" + filename;
+                var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filepath);
+                using (var filestream = new FileStream(filePathDirectory, FileMode.Create))
+                {
+                    productDto.Image.CopyTo(filestream);
+                }
+                var baseurl =
+                    $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
+                product.ImageLocalPath = filepath;
+                product.ImageUrl = baseurl + "/ProductImages/" + filename;
+                // Update the product's ImageUrl in the database
+                _appDbContext.Products.Update(product);
+                _appDbContext.SaveChanges();
+            }
+            else
+            {
+                product.ImageUrl = "https://placehold.co/600x400";
+                // Update the product's ImageUrl in the database
+                _appDbContext.Products.Update(product);
+                _appDbContext.SaveChanges();
+            }
+        }
+
+        private void HandleImageDeletion(string imageLocalPath)
+        {
+            if (!string.IsNullOrEmpty(imageLocalPath))
+            {
+                var oldFilePathDirectory = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    imageLocalPath
+                );
+                FileInfo file = new FileInfo(oldFilePathDirectory);
+                if (file.Exists)
+                {
+                    file.Delete();
+                }
+            }
         }
     }
 }

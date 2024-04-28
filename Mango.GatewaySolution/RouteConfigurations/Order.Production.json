@@ -1,0 +1,101 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI",
+      "UpstreamHttpMethod": [
+        "Get",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI/CreateOrder",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI/CreateOrder",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI/CreateStripeSession",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI/CreateStripeSession",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI/ValidateStripeSession",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI/ValidateStripeSession",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI/UpdateOrderStatus/{orderId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI/UpdateOrderStatus/{orderId}",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI/GetOrder/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI/GetOrder/{id}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "DELETE"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/OrderAPI/GetOrders/{Userid}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mangoservicesorderapis.azurewebsites.net"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/OrderAPI/GetOrders/{Userid}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://mangogateways.azurewebsites.net"
+  }
+}

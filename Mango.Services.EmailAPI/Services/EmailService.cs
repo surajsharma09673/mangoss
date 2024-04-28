@@ -1,9 +1,9 @@
-﻿using Mango.Services.EmailAPI.Data;
+﻿using System.Text;
+using Mango.Services.EmailAPI.Data;
 using Mango.Services.EmailAPI.Models;
 using Mango.Services.EmailAPI.Models.Dto;
 using Mango.Services.EmailAPI.Services.IServices;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
 
 namespace Mango.Services.EmailAPI.Services
 {
@@ -15,6 +15,7 @@ namespace Mango.Services.EmailAPI.Services
         {
             _dboptions = dboptions;
         }
+
         public async Task EmailCartAndLog(CartDto cartDto)
         {
             StringBuilder message = new StringBuilder();
@@ -47,6 +48,12 @@ namespace Mango.Services.EmailAPI.Services
             }
         }
 
+        public async Task LogOrderPLace(RewardMessage rewardMessage)
+        {
+            string message = $"New Order Placed. <br/> Order Id: {rewardMessage.OrderId}";
+            await LogAndEmail(message, "dotnetOrderplaceMastery@gmail.com");
+        }
+
         public async Task RegisterUserEmailAndLog(string email)
         {
             string message = $"User Registration Successful. <br/> Email: {email}";
@@ -62,17 +69,17 @@ namespace Mango.Services.EmailAPI.Services
             }
         }
 
-
         private async Task<bool> LogAndEmail(string message, string email)
         {
             try
             {
-                EmailLogger emailLog = new()
-                {
-                    Email = email,
-                    EmailSent = DateTime.Now,
-                    Message = message
-                };
+                EmailLogger emailLog =
+                    new()
+                    {
+                        Email = email,
+                        EmailSent = DateTime.Now,
+                        Message = message
+                    };
 
                 using var _db = new AppDbContext(_dboptions);
                 _db.EmailLoggers.Add(emailLog);
@@ -89,8 +96,5 @@ namespace Mango.Services.EmailAPI.Services
                 return false;
             }
         }
-
-
-
     }
 }
