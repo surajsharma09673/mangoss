@@ -2,7 +2,7 @@
 {
     public class CartDto
     {
-        public CartHeader CartHeader { get; set; }
-        public IEnumerable<CartDetailsDto> CartDetails { get; set; } = Enumerable.Empty<CartDetailsDto>();
+        public CartHeaderDto CartHeader { get; set; }
+        public IEnumerable<CartDetailsDto> CartDetails { get; set; }
     }
 }

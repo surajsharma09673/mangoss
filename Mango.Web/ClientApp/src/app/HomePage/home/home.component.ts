@@ -15,5 +15,6 @@ export class HomeComponent {
   checkUserRoleAndNavigate() {
     if (this.Tokenservice.validateToken())
       this.router.navigate(['/admin/dashboard']);
+      this.router.navigate(['/home']);
   }
 }

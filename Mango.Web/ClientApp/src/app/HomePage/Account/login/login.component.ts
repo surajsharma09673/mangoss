@@ -6,6 +6,7 @@ import { IuserLogin } from "../../../share-module/Interface/IuserRegister";
 import { FormService } from "../../../share-module/Service/Form.service";
 import { LoginService } from "../../../share-module/Service/login.service";
 import { PopupService } from "../../../share-module/Service/Popup.service";
+import { TokenService } from "../../../share-module/Service/token.service";
 
 
 
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private loginservice: LoginService,
     private formService: FormService,
     private router:Router,
-    private popupService:PopupService
+    private popupService:PopupService,
+    private tokenService:TokenService
 
   ) {
     console.log("login");
@@ -49,7 +51,10 @@ export class LoginComponent implements OnInit {
     this.loginservice.login(Logindetail).subscribe((res) => {
       if(res.isSuccess)
       {
+        if(this.tokenService.isAdmin())
         this.router.navigate(['/admin/dashboard']);
+        this.router.navigate(['/home']);
+
       }
       console.log('logindata', res);
     });

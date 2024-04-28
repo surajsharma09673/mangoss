@@ -5,6 +5,8 @@ import { RegisterComponent } from './Account/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailComponent } from './Product/product-detail/product-detail.component';
 import { ProductCardComponent } from './Product/product-card/product-card.component';
+import { CartComponent } from './cart/cart.component';
+import { OrderSummaryComponent } from './cart/order-summary/order-summary.component';
 
 
 const routes: Routes = [
@@ -18,6 +20,8 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent },
       { path: '', component: ProductCardComponent },
       { path: 'product/:id', component: ProductDetailComponent },
+      { path: 'cart', component: CartComponent },
+      { path: 'orderSummary', component: OrderSummaryComponent },
       // Add additional child routes if needed
     ]
   }

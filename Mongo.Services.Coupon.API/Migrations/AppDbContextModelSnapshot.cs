@@ -21,7 +21,7 @@ namespace Mongo.Services.AuthAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Mongo.Services.CouponAPI.Models.Coupon", b =>
+            modelBuilder.Entity("Mongo.Services.AuthAPI.Models.Coupon", b =>
                 {
                     b.Property<int>("CouponId")
                         .ValueGeneratedOnAdd()

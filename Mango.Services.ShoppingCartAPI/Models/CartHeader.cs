@@ -7,8 +7,8 @@ namespace Mango.Services.ShoppingCartAPI.Models
     {
         [Key]
         public int CartHeaderId {  get; set; }
-        public String UserId { get; set; }
-        public String CouponCode { get; set; }
+        public string UserId { get; set; }
+        public string? CouponCode { get; set; }
 
         [NotMapped]
         public double Discount { get; set; }

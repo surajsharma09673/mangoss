@@ -47,14 +47,12 @@ namespace Mango.Web.Controllers
                     {
                         registrationRequestDto.Role = SD.RoleCustomer;
                     }
-                    else
-                    {
                         Assignrole=await _authService.AssignRoleAsync(registrationRequestDto);
                         if (Assignrole != null && Assignrole.IsSuccess)
                         {
                             return Ok(responseDto);
                         }
-                    }
+                    
                     return Ok(responseDto);
                 }
                 else

@@ -1,4 +1,4 @@
-﻿using Mango.Services.ProductApi.Models.Dto;
+﻿using IdentityModel;
 using Mango.Web.Models;
 using Mango.Web.Service.IService;
 using Microsoft.AspNetCore.Http;
@@ -12,9 +12,11 @@ namespace Mango.Web.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        private readonly ICartService _cartService;
+        public ProductController(IProductService productService,ICartService cartService)
         {
             _productService= productService;
+            _cartService= cartService;
         }
         [HttpGet("GetAllProduct")]
         public async Task<IActionResult> GetAllProduct()
@@ -72,6 +74,48 @@ namespace Mango.Web.Controllers
             {
 
                 ResponseDto response = await _productService.CreateProductAsync(product);
+                if (response != null && response.IsSuccess == true)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpPost("ProductDetails")]
+        public async Task<IActionResult> AddProductDetail([FromBody] ProductDto product)
+        {
+            try
+            {
+                CartDto cart = new CartDto()
+                {
+                    CartHeader = new CartHeaderDto()
+                    {
+                        UserId = User.Claims.Where(u => u.Type == JwtClaimTypes.Subject)?.FirstOrDefault().Value
+                    }
+                };
+
+                CartDetailsDto cartDetails = new CartDetailsDto()
+                {
+                    Count = product.Count,
+                    ProductId = product.ProductId,
+
+
+                };
+                List<CartDetailsDto> cartDetailsDtos = new() { cartDetails };
+
+                cart.CartDetails = cartDetailsDtos;
+                ResponseDto response = await _cartService.UpsertCartAsync(cart);
+
+                
                 if (response != null && response.IsSuccess == true)
                 {
                     return Ok(response);

@@ -4,4 +4,5 @@ interface UrlEndpoint{
     CreateProduct:string;
     UpdateProduct:string;
     DeleteProduct:string;
+    AddProductDetails:string
 }

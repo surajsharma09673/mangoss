@@ -8,6 +8,10 @@ import { SharedModule } from '../share-module/share.module';
 import { HomeComponent } from './home/home.component';
 import { ProductCardComponent } from './Product/product-card/product-card.component';
 import { ProductDetailComponent } from './Product/product-detail/product-detail.component';
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './cart/checkout/checkout.component';
+import { OrderDetailsCardComponent } from './cart/order-details-card/order-details-card.component';
+import { OrderSummaryComponent } from './cart/order-summary/order-summary.component';
 
 
 @NgModule({
@@ -16,7 +20,11 @@ import { ProductDetailComponent } from './Product/product-detail/product-detail.
     RegisterComponent,
     HomeComponent,
     ProductCardComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    CartComponent,
+    CheckoutComponent,
+    OrderDetailsCardComponent,
+    OrderSummaryComponent
     
   ],
   imports: [

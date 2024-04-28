@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IProduct } from '../Interface/Iproduct.model';
 import { HttpService } from './http.service';
 import { ApiEndpointService } from './ApiEndpoint.service';
+import { IResponseDto } from '../Interface/IResponseDto';
 
 interface ProductServiceHome {
     getAllProduct(): Observable<IProduct[]>;
@@ -23,4 +24,9 @@ export class HomeProductService implements ProductServiceHome {
     const url = this.endpointservice.endpoints.GetProductById;
     return this.http.get<IProduct>(`${url}${id}`);
   }
+  AddProductDetails(Iproduct:IProduct): Observable<IResponseDto> {
+    const url = this.endpointservice.endpoints.AddProductDetails;
+    return this.http.post<IResponseDto>(url,Iproduct);
+  }
+
 }
